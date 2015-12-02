@@ -1,0 +1,7 @@
+<%- if @users %>
+  <% @users.each do |user| %>
+    <%= render "layouts/userPartial", :user => user %>
+  <% end %>
+<% else %>
+  <div class="alert alert-info" role="alert"> No users found! </div>
+<% end -%>

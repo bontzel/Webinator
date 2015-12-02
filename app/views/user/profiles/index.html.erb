@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <h2> Yer fecking wall! </h2>
+    </div>
+    <button id="postButton" type="button" class="btn btn-primary pull-right margin-right">Post on this wall</button>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%- if @posts %>
+        <% @posts.each do |post| %>
+          <%= render "layouts/post", :post => post %>
+        <% end %>
+      <% else %>
+        <div class="alert alert-info" role="alert"> There are no posts on your wall! </div>
+      <% end -%>
+    </div>
+  </div>
+</div>
+<div id="coverer"> &nbsp </div>
+
+
+<div id="postPopUp" class="panel panel-default content hidden">
+  <div class="panel-body">
+    <div class="page-header">
+      <h2>Say something nice <small>please...</small></h2>
+      <%= form_for @post do |f| %>
+        <%= render "shared/errors", object: @post %>
+        <%= f.text_area :text, class: "form-control" %>
+      <% end %>
+    </div>
+    <form>
+
+    </form>
+  </div>
+</div>
