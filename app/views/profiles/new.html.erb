@@ -1,0 +1,17 @@
+<div class="container-fluid">
+	<div class="row">
+		<h2> Create yer damn profile </h2>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<%= form_for [@user, @profile] do |f| %>
+				        <%= f.text_field :first_name, class: "form-control" %>
+				        <%= f.text_field :last_name, class: "form-control" %>
+				        
+				        <%= f.submit "Create", class: "btn btn-primary" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
