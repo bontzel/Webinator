@@ -1,0 +1,19 @@
+<h2> Yer freakin profile! </h2>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-1">
+			<div class="thumbnail">
+				<img src=<%= @profile.avatar %> alt="avatar image" width=100 height=100>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<ul>
+			<li> First name: <%= @profile.first_name %></li>
+			<li> First name: <%= @profile.last_name %></li>
+			<li> <%= link_to "edit yer prefile", edit_user_profile_path(current_user.id, params[:id]) %>
+		</ul>
+	</div>
+</div>

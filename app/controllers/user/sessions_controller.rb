@@ -2,9 +2,9 @@ class User::SessionsController < Devise::SessionsController
 # before_filter :configure_sign_in_params, only: [:create]
 
    # GET /resource/sign_in
-   def new
-     super
-   end
+   # def new
+   #  super
+   # end
 
   # POST /resource/sign_in
   # def create
@@ -15,6 +15,10 @@ class User::SessionsController < Devise::SessionsController
   # def destroy
   #   super
   # end
+
+  def after_sign_in_path_for(resource)
+    user_profile_path(resource.id, resource.profile.id)
+  end
 
   # protected
 

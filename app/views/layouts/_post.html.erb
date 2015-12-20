@@ -1,6 +1,15 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title"> <%= post.user.first_name %> said: </h3>
+    <div class="row">
+      <div class="col-md-1">
+        <div class="thumbnail">
+          <img src=<%= post.user.profile.avatar %> alt="avatar image" width=50 height=50>
+        </div>
+      </div>
+      <div class="col-md-11">
+        <h3 class="panel-title"> <%= post.user.profile.first_name %> said: </h3>
+      </div>
+    </div>
   </div>
   <div class="panel-body">
     <p><%= post.text %> </p>

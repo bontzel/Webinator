@@ -1,0 +1,8 @@
+<h2> edit yer freakin profile </h2>
+
+<%= form_for [current_user, @profile] do |f| %>
+  <%= f.text_field :first_name %>
+  <%= f.text_field :last_name %>
+  <%= f.file_field :avatar %>
+  <%= f.submit "Update" %>
+<% end %>

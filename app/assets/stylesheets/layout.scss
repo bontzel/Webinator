@@ -1,3 +1,29 @@
 .little-padding-bottom img {
   margin-top: -9px;
 }
+
+body {
+  background-color: #E9EAED !important;
+}
+
+.cool-bg {
+  background: #1e5799;
+  background: -moz-linear-gradient(top, #1e5799 13%, #2989d8 87%, #207cca 95%, #7db9e8 100%);
+  background: -webkit-linear-gradient(top, #1e5799 13%,#2989d8 87%,#207cca 95%,#7db9e8 100%);
+  background: linear-gradient(to bottom, #1e5799 13%,#2989d8 87%,#207cca 95%,#7db9e8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 );
+
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: white !important;
+}
+
+.nav-bar-link-active {
+  background: #18467a;
+background: -moz-linear-gradient(top,  #18467a 13%, #206dac 87%, #19609f 95%, #3d98dd 100%);
+background: -webkit-linear-gradient(top,  #18467a 13%,#206dac 87%,#19609f 95%,#3d98dd 100%);
+background: linear-gradient(to bottom,  #18467a 13%,#206dac 87%,#19609f 95%,#3d98dd 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#18467a', endColorstr='#3d98dd',GradientType=0 );
+
+}

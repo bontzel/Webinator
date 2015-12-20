@@ -8,9 +8,13 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+
+    if resource.save
+      Wall.create(:user_id => resource.id)
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -49,9 +53,9 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(resource)
+    new_user_profile_path(resource.id)
+  end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)

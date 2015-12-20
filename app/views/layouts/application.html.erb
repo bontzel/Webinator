@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default cool-bg">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -25,20 +25,24 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
+        <%- if is_current_profile %>
+          <li class="nav-bar-link-active">
+        <% else %>
+          <li>
+        <% end %>
+        <%- if current_user %>
+            <%= link_to "Your profile", user_profile_path(current_user.id, current_user.profile.id), :method => :get %>
+        <% end %>
         </li>
+        <%- if current_user %>
+          <%- if params[:controller] == "walls" && params[:id] == current_user.wall.id.to_s %>
+            <li class="nav-bar-link-active">
+          <% else %>
+            <li>
+          <% end %>
+            <%= link_to "Your wall", user_wall_path(current_user.wall.id, current_user.id), :method => :get %>
+          </li>
+        <% end %>
       </ul>
           <%= form_tag(users_path,method: "get", class: "navbar-form navbar-left") do %>
             <div class="input-group">

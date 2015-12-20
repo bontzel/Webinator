@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { registrations: 'registrations', sessions: "user/sessions" }
+  devise_for :users, :controllers => { sessions: "user/sessions", registration: "user/registraions" }
 
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -11,8 +11,12 @@ Rails.application.routes.draw do
   root 'profiles#index'
 
   resources :users do
-    resources :posts
     resources :profiles
+    resources :walls
+  end
+
+  resources :walls do
+    resources :posts
   end
 
   # Example of regular route:
