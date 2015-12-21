@@ -58,11 +58,11 @@
             </div>
 
             <div class="actions">
-              <%= f.submit "Sign up", :class => "btn btn-default" %>
+              <%= f.submit "Sign up", :class => "btn btn-primary" %>
               <div class="pull-right">
                 <span class="label label-info">or, just</span>
                 <%- if controller_name != 'sessions' %>
-                  <%= link_to "Log in", new_session_path(resource_name), :class => "btn btn-default" %><br />
+                  <%= link_to "Log in", new_session_path(resource_name) %><br />
                 <% end -%>
             </div>
         <% end %>

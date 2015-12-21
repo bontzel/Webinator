@@ -7,7 +7,13 @@
         </div>
       </div>
       <div class="col-md-11">
-        <h3 class="panel-title"> <%= post.user.profile.first_name %> said: </h3>
+        <h3 class="panel-title">
+          <%- if current_user.id == post.user.id %>
+            You said:
+          <% else %>
+           <%= post.user.profile.first_name %> said:
+          <% end %>
+         </h3>
       </div>
     </div>
   </div>
