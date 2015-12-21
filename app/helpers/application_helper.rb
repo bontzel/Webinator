@@ -9,7 +9,20 @@ module ApplicationHelper
     return false;
   end
 
-  def get_active_link
+  def get_active_link(controller, model)
+    if current_user && params[:controller] == controller &&
+       params[:id] == model.id.to_s
+       return "nav-bar-link-active"
+    end
 
+    return ""
+  end
+
+  def is_link_available(attribute)
+    if current_user.nil? || current_user.send(attribute).blank?
+      return false
+    else
+      return true
+    end
   end
 end

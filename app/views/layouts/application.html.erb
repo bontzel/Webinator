@@ -25,25 +25,20 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <%- if is_current_profile %>
-          <li class="nav-bar-link-active">
-        <% else %>
-          <li>
-        <% end %>
-        <%- if current_user && current_user.profile %>
+        <!-- Profile link -->
+        <%- if is_link_available("profile") %>
+          <li class=<%= get_active_link("profile",current_user.profile) %>>
             <%= link_to "Your profile", user_profile_path(current_user.id, current_user.profile.id), :method => :get %>
+          </li>
         <% end %>
-        </li>
-        <%- if current_user && current_user.profile %>
-          <%- if params[:controller] == "walls" && params[:id] == current_user.wall.id.to_s %>
-            <li class="nav-bar-link-active">
-          <% else %>
-            <li>
-          <% end %>
-            <%= link_to "Your wall", user_wall_path(current_user.id, current_user.wall.id), :method => :get %>
+        <!-- Wall link -->
+        <%- if is_link_available("wall") %>
+          <li class=<%= get_active_link("wall",current_user.wall) %>>
+            <%= link_to "Your wall", user_profile_path(current_user.id, current_user.wall.id), :method => :get %>
           </li>
         <% end %>
       </ul>
+      <!-- user search -->
           <%= form_tag(users_path,method: "get", class: "navbar-form navbar-left") do %>
             <div class="input-group">
                <span class="input-group-btn">
