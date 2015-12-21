@@ -12,12 +12,12 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :profiles
-    resources :walls
+    resources :walls, only: [:show] do
+      resources :posts, only: [:create]
+    end
+    resources :friendship, only: [:create, :destroy]
   end
 
-  resources :walls do
-    resources :posts
-  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
