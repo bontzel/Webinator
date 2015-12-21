@@ -23,7 +23,7 @@
   <div class="panel-body">
     <div class="page-header">
       <h2>Say something nice <small>please...</small></h2>
-      <%= form_for [@wall, Post.new] do |f| %>
+      <%= form_for [current_user, @wall, Post.new] do |f| %>
         <%= f.text_area :text, class: "form-control" %>
         <div class="row">
           <%= link_to "Cancel", url_for(params), :class => "btn btn-default pull-left left-top-margin", method: :get%>

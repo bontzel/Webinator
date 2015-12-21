@@ -34,7 +34,7 @@
         <!-- Wall link -->
         <%- if is_link_available("wall") %>
           <li class=<%= get_active_link("wall",current_user.wall) %>>
-            <%= link_to "Your wall", user_profile_path(current_user.id, current_user.wall.id), :method => :get %>
+            <%= link_to "Your wall", user_wall_path(current_user.id, current_user.wall.id), :method => :get %>
           </li>
         <% end %>
       </ul>
