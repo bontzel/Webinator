@@ -3,5 +3,6 @@ class WallsController < ApplicationController
     @wall = Wall.find(params[:id])
     @posts = @wall.posts
     @post = Post.new
+
   end
 end
