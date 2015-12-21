@@ -30,7 +30,7 @@
         <% else %>
           <li>
         <% end %>
-        <%- if current_user %>
+        <%- if current_user && current_user.profile %>
             <%= link_to "Your profile", user_profile_path(current_user.id, current_user.profile.id), :method => :get %>
         <% end %>
         </li>
