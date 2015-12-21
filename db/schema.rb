@@ -11,10 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202234220) do
+ActiveRecord::Schema.define(version: 20151221155440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "feed_histories", force: :cascade do |t|
+    t.integer  "feed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "feed_histories", ["feed_id"], name: "index_feed_histories_on_feed_id", using: :btree
+
+  create_table "feed_history_has_posts", force: :cascade do |t|
+    t.integer  "feed_history_id"
+    t.integer  "post_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "feed_history_has_posts", ["feed_history_id"], name: "index_feed_history_has_posts_on_feed_history_id", using: :btree
+  add_index "feed_history_has_posts", ["post_id"], name: "index_feed_history_has_posts_on_post_id", using: :btree
+
+  create_table "feeds", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "feeds", ["user_id"], name: "index_feeds_on_user_id", using: :btree
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -64,6 +97,10 @@ ActiveRecord::Schema.define(version: 20151202234220) do
 
   add_index "walls", ["user_id"], name: "index_walls_on_user_id", using: :btree
 
+  add_foreign_key "feed_histories", "feeds"
+  add_foreign_key "feed_history_has_posts", "feed_histories"
+  add_foreign_key "feed_history_has_posts", "posts"
+  add_foreign_key "feeds", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "posts", "walls"
   add_foreign_key "profiles", "users"

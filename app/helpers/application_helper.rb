@@ -8,4 +8,8 @@ module ApplicationHelper
 
     return false;
   end
+
+  def get_active_link
+
+  end
 end
