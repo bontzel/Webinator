@@ -8,13 +8,15 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    super
-
-    if resource.save
-      Wall.create(:user_id => resource.id)
-    end
-  end
+  # def create
+  #   super
+  #
+  #   if resource.save
+  #     Wall.create(:user_id => resource.id)
+  #     @feed = Feed.create(:user_id => resource.id)
+  #     FeedHistory.create(:feed_id => @feed.id)
+  #   end
+  # end
 
   # GET /resource/edit
   # def edit

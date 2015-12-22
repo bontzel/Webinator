@@ -11,9 +11,6 @@ class ProfilesController < ApplicationController
   def new
     @profile = Profile.new
     @user = current_user
-    if @user.wall.nil?
-      Wall.create(:user_id => @user.id)
-    end
   end
 
   def show
@@ -36,8 +33,20 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    Profile.create(:first_name => params[:profile][:first_name], :last_name => params[:profile][:last_name],
-                   :user_id => current_user.id, :avatar => "/images/default-avatar.png")
+    @profile = Profile.new
+    @profile.first_name = params[:profile][:first_name]
+    @profile.last_name = params[:profile][:last_name]
+    @profile.user_id = current_user.id
+
+    if @profile.save
+      Wall.create(:user_id => current_user.id)
+      @feed = Feed.create(:user_id => current_user.id)
+      FeedHistory.create(:feed_id => @feed.id)
+    end
+
+    # Profile.create(:first_name => params[:profile][:first_name], :last_name => params[:profile][:last_name],
+    #                :user_id => current_user.id, :avatar => "/images/default-avatar.png")
+
     redirect_to user_profiles_path(current_user.id)
   end
 end
