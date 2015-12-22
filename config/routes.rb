@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :posts, only: [:create]
     end
     resources :friendship, only: [:create, :destroy]
-    resources :feed, only: [:show]
+    resources :feed_histories, only: [:show]
   end
 
   # Example of regular route:

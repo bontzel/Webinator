@@ -1,0 +1,5 @@
+<h2> yer feed </h2>
+
+<% @posts.each do |post| %>
+  <%= render "layouts/post", :post => post %>
+<% end %>

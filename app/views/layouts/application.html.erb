@@ -37,6 +37,12 @@
             <%= link_to "Your wall", user_wall_path(current_user.id, current_user.wall.id), :method => :get %>
           </li>
         <% end %>
+        <!-- Feed link -->
+        <%- if is_link_available("feed") %>
+          <li class=<%= get_active_link("feed",current_user.feed) %>>
+            <%= link_to "Your feed", user_feed_history_path(current_user.id, current_user.feed_history.id), :method => :get %>
+          </li>
+        <% end %>
       </ul>
       <!-- user search -->
           <%= form_tag(users_path,method: "get", class: "navbar-form navbar-left") do %>
