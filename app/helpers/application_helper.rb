@@ -10,8 +10,8 @@ module ApplicationHelper
   end
 
   def get_active_link(controller, model)
-    if current_user && params[:controller] == controller &&
-       params[:id] == model.id.to_s
+    if params[:controller] == controller &&
+       params[:user_id] == model.user_id.to_s
        return "nav-bar-link-active"
     end
 
