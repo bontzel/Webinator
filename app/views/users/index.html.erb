@@ -1,6 +1,7 @@
 <%- if @users %>
   <% @users.each do |user| %>
     <%= render "layouts/userPartial", :user => user %>
+    <%= link_to "Add Friend", user_friendship_index_path(:friend_id => user), :method => :post %>
   <% end %>
 <% else %>
   <div class="alert alert-info" role="alert"> No users found! </div>
