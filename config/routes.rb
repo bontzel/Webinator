@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :walls, only: [:show] do
       resources :posts, only: [:create]
     end
-    resources :friendship, only: [:create, :destroy]
+    resources :friendships, only: [:create, :destroy]
     resources :feed_histories, only: [:show]
   end
 

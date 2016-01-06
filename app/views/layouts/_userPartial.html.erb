@@ -1,5 +1,5 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <%= link_to user.first_name.to_s + " " + user.last_name.to_s, user_path(user) %>
+    <%= link_to user.profile.first_name.to_s + " " + user.profile.last_name.to_s, user_profile_path(user.id, user.profile.id) %>
   </div>
 </div>

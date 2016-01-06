@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
 
   def index
-    @users = User.where("first_name like ? OR last_name like ?", "%" + params[:q].to_s + "%","%" + params[:q].to_s + "%").distinct
+    @profiles = Profile.where("first_name like ? OR last_name like ?", "%" + params[:q].to_s + "%","%" + params[:q].to_s + "%").distinct
+    @users = []
+    @profiles.each do |p|
+      @users << p.user
+    end
   end
 
   def show

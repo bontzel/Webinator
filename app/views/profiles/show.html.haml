@@ -1,0 +1,18 @@
+%h2 yer frikkin prefile
+.container-fluid
+  .row
+    .col-md-1
+      .thumbnail
+        %img{:src => @profile.avatar}
+
+  .row
+    %ul
+      %li= "First name: " + @profile.first_name
+      %li= "Last name: " + @profile.last_name
+      %li
+        - if current_user.id == params[:user_id].to_i
+          = link_to "edit yer prefile", edit_user_profile_path(current_user.id, params[:id])
+        - elsif @not_friend
+          = link_to "Add Friend", user_friendships_path(:user_id => current_user, :friend_id => params[:id]), :method => :post
+        - else
+          = link_to "Unfriend", user_friendship_path(current_user.id, current_user.friendship.id)
