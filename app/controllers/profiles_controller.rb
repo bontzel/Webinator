@@ -14,7 +14,8 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find(params[:id])
-    @not_friend = current_user.friendships.where( :user_id => params[:user_id].to_i).blank?
+    @friendship = Friendship.where(:user_id => current_user.id, :friend_id => params[:user_id].to_i).first
+
   end
 
   def edit
