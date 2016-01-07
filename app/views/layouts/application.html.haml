@@ -51,7 +51,7 @@
           %span.glyphicon.glyphicon-user
           %span.badge.badge-super 0
           %ul.dropdown-menu
-            - (5...10).each do |i|
+            - pending_friend_requests.each do |request|
               %li
                 %a= i.to_s + "th notification"
 

@@ -25,4 +25,10 @@ module ApplicationHelper
       return true
     end
   end
+
+  def  pending_friend_requests
+    @friendships = Friendship.where("friend_id = ? and pending = ?", u.id, true)
+    
+    return
+  end
 end
