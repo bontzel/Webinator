@@ -1,0 +1,3 @@
+- if is_link_available(name)
+  %li{:class => get_active_link(controller, current_user.send(name)) + " main-link"}
+    = link_to "Your " + name, send("user_" + path + "_path", current_user.id, current_user.send(model).id), :method => :get, :class => "main-link"

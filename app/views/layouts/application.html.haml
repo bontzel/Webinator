@@ -1,0 +1,68 @@
+%html
+  %head
+    %title Webinator
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+%body
+  %nav.navbar.navbar-defaul.cool-bg
+    .container-fluid
+      / Brand and toggle get grouped for better mobile display
+      .navbar-header
+        %button{:type => "button", :class => "navbar-toggle collapsed", "data-toggle" => "collapse", "data-target" => "#bs-example-navbar-collapse-1", "aria-expanded" => false}
+          %span.sr-only Toggle Navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.navbar-brand.little-padding-bottom
+          %img{:alt => "brand", :src => "/images/logo-mini.png"}
+
+      / Collect the nav links, forms, and other content for toggling
+      .collapse.navbar-collapse#bs-example-navbar-collapse-1
+        %ul.nav.navbar-nav
+          / Profile link
+          =render "layouts/main_link", :name => "profile", :controller => "profiles", :model => "profile", :path => "profile"
+
+          / Wall link
+          =render "layouts/main_link", :name => "wall", :controller => "walls", :model => "wall", :path => "wall"
+
+          / Feed link
+          =render "layouts/main_link", :name => "feed", :controller => "feed_histories", :model => "feed_history", :path => "feed_history"
+
+          / user search
+          = form_tag(users_path,method: "get", class: "navbar-form navbar-left") do
+            .input-group
+              %span.input-group-btn
+                = submit_tag("Search", class: "btn btn-default")
+              = text_field_tag :q, nil, class: 'form-control'
+
+          %li.btn.btn-lg.dropdown
+            .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
+            %span.glyphicon.glyphicon-globe
+            %span.badge.badge-super 0
+            %ul.dropdown-menu
+              - (5...10).each do |i|
+                %li
+                  %a= i.to_s + "th notification"
+
+        %li.btn.btn-lg.dropdown
+          .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
+          %span.glyphicon.glyphicon-user
+          %span.badge.badge-super 0
+          %ul.dropdown-menu
+            - (5...10).each do |i|
+              %li
+                %a= i.to_s + "th notification"
+
+
+        %ul.nav.navbar-nav.navbar-right
+          - if current_user
+            %li= link_to "Sign out!", destroy_user_session_path
+
+  - if notice
+    %p.alert.alert-success= notice
+  - if alert
+    %p.alert.alert-danger= alert
+
+  = yield
