@@ -27,8 +27,18 @@ module ApplicationHelper
   end
 
   def  pending_friend_requests
-    @friendships = Friendship.where("friend_id = ? and pending = ?", u.id, true)
-    
-    return
+    if current_user
+      @friendships = Friendship.where("friend_id = ? and pending = ?", current_user.id, true)
+      return @friendships
+    end
   end
+
+  def read_requests
+
+  end
+
+  def new_requests
+    return Friendship.where("friend_id = ? and pending = ? and read = ?", current_user.id, true, false).count
+  end
+
 end
