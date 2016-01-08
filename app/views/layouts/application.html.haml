@@ -49,8 +49,9 @@
           %li.btn.btn-lg.dropdown{data: {run_this: read_requests}}
             .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
             %span.glyphicon.glyphicon-user
-            %span.badge.badge-super
-              = new_requests
+            - if new_requests
+              %span.badge.badge-super
+                = new_requests
             %ul.dropdown-menu
               - if pending_friend_requests
                 - pending_friend_requests.each do |request|

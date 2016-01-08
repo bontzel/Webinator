@@ -38,7 +38,9 @@ module ApplicationHelper
   end
 
   def new_requests
-    return Friendship.where("friend_id = ? and pending = ? and read = ?", current_user.id, true, false).count
+    if current_user
+      return Friendship.where("friend_id = ? and pending = ? and read = ?", current_user.id, true, false).count
+    end
   end
 
 end
