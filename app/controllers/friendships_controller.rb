@@ -1,4 +1,6 @@
 class FriendshipsController < ApplicationController
+respond_to :html, :xml, :json
+
   def create
     @friendship = current_user.friendships.build(:friend_id => params[:friend_id], :pending => true, :accepted => false, :read => false)
     if @friendship.save
@@ -15,5 +17,16 @@ class FriendshipsController < ApplicationController
     @friendship.destroy
     flash[:notice] = "Removed friendship."
     redirect_to root_url
+  end
+
+  def read_requests
+    params[:_json].each do |f|
+      Friendship.find(f).update(:read => true)
+    end
+
+    respond_to do |format|
+
+      format.json  { render :json => params[:_json] } # don't do msg.to_json
+    end
   end
 end

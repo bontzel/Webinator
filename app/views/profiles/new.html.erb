@@ -6,7 +6,7 @@
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<%= form_for [@user, @profile] do |f| %>
+					<%= form_for [current_user, Profile.new] do |f| %>
 						<div class="form-group">
 							<%= f.label :first_name %>
 			        <%= f.text_field :first_name, class: "form-control" %>

@@ -46,17 +46,19 @@
                 %li
                   %a= i.to_s + "th notification"
 
-          %li.btn.btn-lg.dropdown{data: {run_this: read_requests}}
+
+          %li.btn.btn-lg.dropdown#requests-widget{:data => { requests: new_requests}}
             .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
             %span.glyphicon.glyphicon-user
-            - if new_requests
-              %span.badge.badge-super
-                = new_requests
+            - if @reqs_count
+              %span.badge.badge-super#requests-badge
+                = @reqs_count
             %ul.dropdown-menu
               - if pending_friend_requests
                 - pending_friend_requests.each do |request|
                   %li
                     = link_to request.user.profile.first_name.to_s + "'s request!'", user_profile_path(request.user.id, request.user.profile.id)
+
 
 
         %ul.nav.navbar-nav.navbar-right
@@ -67,5 +69,6 @@
     %p.alert.alert-success= notice
   - if alert
     %p.alert.alert-danger= alert
+
 
   = yield

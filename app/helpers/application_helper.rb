@@ -34,12 +34,24 @@ module ApplicationHelper
   end
 
   def read_requests
-
+    @new_requests = Friendship.where("friend_id = ? and pending = ? and read = ?", current_user.id, true, false)
+    if @new_requests
+      @reqs_count = @new_requests.count
+    end
+    if @new_requests.count > 0
+      @new_requests.update_all(:read => true)
+    end
   end
 
   def new_requests
     if current_user
-      return Friendship.where("friend_id = ? and pending = ? and read = ?", current_user.id, true, false).count
+      @new_reqs = Friendship.where("friend_id = ? and pending = ? and read = ?", current_user.id, true, false)
+      @reqs_count = @new_reqs.count
+      arr = Array.new
+      @new_reqs.each do |item|
+        arr << item.id
+      end
+      return arr
     end
   end
 

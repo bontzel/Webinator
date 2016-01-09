@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :feed_histories, only: [:show]
   end
 
+  put 'friendships/read_requests' => 'friendships#read_requests'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
