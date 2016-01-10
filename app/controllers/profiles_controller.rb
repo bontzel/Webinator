@@ -15,6 +15,9 @@ class ProfilesController < ApplicationController
   def show
     @profile = Profile.find(params[:id])
     @friendship = Friendship.where(:user_id => current_user.id, :friend_id => params[:user_id].to_i).first
+    if @friendship.blank?
+      @friendship = Friendship.where(:user_id => params[:user_id].to_i, :friend_id => current_user.id).first
+    end
 
   end
 
@@ -31,7 +34,7 @@ def update
 
     flash[:notice] = "User profile succesfully updated!"
     redirect_to user_profile_path(current_user.id, current_user.profile.id)
-  end
+end
 
   def create
     @profile = Profile.new

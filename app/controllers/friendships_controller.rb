@@ -29,4 +29,20 @@ respond_to :html, :xml, :json
       format.json  { render :json => params[:_json] } # don't do msg.to_json
     end
   end
+
+  def accept_friendship
+    @friendship = Friendship.find(params[:id])
+    @friendship.update(:accepted => true)
+    @friendship.update(:pending => false)
+
+    redirect_to :back
+  end
+
+  def decline_friendship
+    @friendship = Friendship.find(params[:id])
+    @friendship.update(:accepted => false)
+    @friendship.update(:pending => false)
+
+    redirect_to :back
+  end
 end

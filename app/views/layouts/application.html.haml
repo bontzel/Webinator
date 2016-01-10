@@ -31,33 +31,36 @@
           =render "layouts/main_link", :name => "feed", :controller => "feed_histories", :model => "feed_history", :path => "feed_history"
 
           / user search
-          = form_tag(users_path,method: "get", class: "navbar-form navbar-left") do
-            .input-group
-              %span.input-group-btn
-                = submit_tag("Search", class: "btn btn-default")
-              = text_field_tag :q, nil, class: 'form-control'
+          - if current_user
+            = form_tag(users_path,method: "get", class: "navbar-form navbar-left") do
+              .input-group
+                %span.input-group-btn
+                  = submit_tag("Search", class: "btn btn-default")
+                = text_field_tag :q, nil, class: 'form-control'
 
-          %li.btn.btn-lg.dropdown
-            .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
-            %span.glyphicon.glyphicon-globe
-            %span.badge.badge-super 0
-            %ul.dropdown-menu
-              - (5...10).each do |i|
-                %li
-                  %a= i.to_s + "th notification"
-
-
-          %li.btn.btn-lg.dropdown#requests-widget{:data => { requests: new_requests}}
-            .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
-            %span.glyphicon.glyphicon-user
-            - if @reqs_count
-              %span.badge.badge-super#requests-badge
-                = @reqs_count
-            %ul.dropdown-menu
-              - if pending_friend_requests
-                - pending_friend_requests.each do |request|
+            %li.btn.btn-lg.dropdown
+              .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
+              %span.glyphicon.glyphicon-globe
+              %span.badge.badge-super 0
+              %ul.dropdown-menu
+                - (5...10).each do |i|
                   %li
-                    = link_to request.user.profile.first_name.to_s + "'s request!'", user_profile_path(request.user.id, request.user.profile.id)
+                    %a= i.to_s + "th notification"
+
+
+            %li.btn.btn-lg.dropdown#requests-widget{:data => { requests: new_requests}}
+              .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
+              %span.glyphicon.glyphicon-user
+              - if @reqs_count > 0
+                %span.badge.badge-super#requests-badge
+                  = @reqs_count
+              %ul.dropdown-menu
+                - if pending_friend_requests
+                  - pending_friend_requests.each do |request|
+                    = render "layouts/friend_request", :request => request
+                    /
+                      %li
+                        = link_to request.user.profile.first_name.to_s + "'s request!'", user_profile_path(request.user.id, request.user.profile.id)
 
 
 

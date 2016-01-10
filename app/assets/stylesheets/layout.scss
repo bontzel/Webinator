@@ -17,6 +17,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2462b8', end
 
 }
 
+.hidden {
+  display: none;
+}
+
+.dropdown-menu {
+  width: 350px;
+}
+
+.request-link {
+  padding-top: 8px;
+}
+
 .button_to-fix {
   position: absolute;
 }

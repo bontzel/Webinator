@@ -1,1 +1,5 @@
-%a= user.to_s + " has sent you a friend request!"
+%li
+  .panel.panel-default
+    .panel-body
+      = link_to request.user.profile.first_name.to_s + " has sent you a friend request!", user_profile_path(request.user.id, request.user.profile.id), :class => "request-link pull-left"
+      = link_to "Decline", { :controller => :friendships, :action => :decline_friendship, :id => request.id}, :class => "btn btn-default pull-right", :method => :patch

@@ -14,5 +14,7 @@
           = link_to "edit yer prefile", edit_user_profile_path(current_user.id, params[:id])
         - elsif @friendship.blank?
           = link_to "Add Friend",  user_friendships_path(:user_id => current_user.id, :friend_id => params[:user_id]), :method => :post
-        - else
+        - elsif @friendship.accepted?
           = link_to "Unfriend", user_friendship_path(current_user.id, @friendship.id), :method => :delete
+        - else
+          = link_to "Accept Friend", { controller: 'friendships', action: 'accept_friendship', id: @friendship.id }, :method => :patch

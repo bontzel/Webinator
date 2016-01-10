@@ -18,7 +18,9 @@ Rails.application.routes.draw do
     resources :feed_histories, only: [:show]
   end
 
-  put 'friendships/read_requests' => 'friendships#read_requests'
+  patch 'friendships/read_requests' => 'friendships#read_requests'
+  patch 'friendships/accept_friendship/:id' => 'friendships#accept_friendship'
+  patch 'friendships/decline_friendship/:id' => 'friendships#decline_friendship'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
