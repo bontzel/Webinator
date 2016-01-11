@@ -34,6 +34,8 @@ respond_to :html, :xml, :json
     @friendship = Friendship.find(params[:id])
     @friendship.update(:accepted => true)
     @friendship.update(:pending => false)
+    Friendship.create(:user_id => @friendship.friend_id, :friend_id => @friendship.user_id, :pending => false, :accepted => true, :read => true)
+    flash[:notice] = "Friend added!"
 
     redirect_to :back
   end

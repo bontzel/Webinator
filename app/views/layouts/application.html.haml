@@ -55,13 +55,14 @@
                 %span.badge.badge-super#requests-badge
                   = @reqs_count
               %ul.dropdown-menu
-                - if pending_friend_requests
+                - if pending_friend_requests.blank?
+                  %li
+                    .panel.panel-default
+                      .panel-body
+                        You have no more friend requests!
+                - else
                   - pending_friend_requests.each do |request|
                     = render "layouts/friend_request", :request => request
-                    /
-                      %li
-                        = link_to request.user.profile.first_name.to_s + "'s request!'", user_profile_path(request.user.id, request.user.profile.id)
-
 
 
         %ul.nav.navbar-nav.navbar-right
