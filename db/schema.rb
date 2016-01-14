@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108072457) do
+ActiveRecord::Schema.define(version: 20160114071244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "feed_histories", force: :cascade do |t|
     t.integer  "feed_id"
@@ -87,7 +98,6 @@ ActiveRecord::Schema.define(version: 20160108072457) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -101,6 +111,8 @@ ActiveRecord::Schema.define(version: 20160108072457) do
 
   add_index "walls", ["user_id"], name: "index_walls_on_user_id", using: :btree
 
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "feed_histories", "feeds"
   add_foreign_key "feed_history_has_posts", "feed_histories"
   add_foreign_key "feed_history_has_posts", "posts"

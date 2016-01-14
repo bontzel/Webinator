@@ -1,4 +1,7 @@
-%h2 yer frikkin prefile
+- if current_user.id == params[:user_id].to_i
+  %h2 Your Profile
+- elsif
+  %h2= @profile.last_name + "'s Profile"
 .container-fluid
   .row
     .col-md-1

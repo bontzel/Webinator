@@ -13,6 +13,15 @@ class ProfilesController < ApplicationController
   end
 
   def show
+    if current_user.profile.blank?
+      redirect_to new_user_profile_path(current_user.id)
+    end
+
+    if params[:id].blank?
+      params[:user_id] = current_user.id
+      params[:id] = current_user.profile.id
+    end
+
     @profile = Profile.find(params[:id])
     @friendship = Friendship.where(:user_id => current_user.id, :friend_id => params[:user_id].to_i).first
     if @friendship.blank?

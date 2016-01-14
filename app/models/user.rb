@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   has_one :feed
   has_one :feed_history, through: :feed
+  has_many :comments
 
   accepts_nested_attributes_for :feed_history,
     :reject_if => :all_blank,

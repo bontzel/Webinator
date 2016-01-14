@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :users do
     resources :profiles
     resources :walls, only: [:show] do
-      resources :posts, only: [:create]
+      resources :posts, only: [:create] do
+        resources :comments, only: [:create]
+      end
     end
     resources :friendships, only: [:create, :destroy]
     resources :feed_histories, only: [:show]
