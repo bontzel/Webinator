@@ -14,6 +14,8 @@
               %h3.panel-title= post.user.profile.first_name + " said"
       .panel-body
         %p= post.text
+      = render "layouts/comments"  
+    /
       = form_for [current_user, post.wall, post, Comment.new], :class => "margin-fix" do |f|
         .input-group
           = f.text_field :text, { :class => "form-control", :placeholder => "Post a comment..." }
