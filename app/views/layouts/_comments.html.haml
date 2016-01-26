@@ -2,18 +2,21 @@
   .col-md-1
     .btn.btn-link Like
   .col-md-2
-    .btn.btn-link{"data-toggle" => "collapse", "data-target" => "#uniqueId"} Comment
+    .btn.btn-link{"data-toggle" => "collapse", "data-target" => "#uniqueId" + unique_id } Comment
   .col-md-9
-.collapse#uniqueId
+.collapse{:id => "uniqueId" + unique_id}
   - if !post.comments.blank?
-    = post.comments.each do |comment|
+    - post.comments.each do |comment|
       .row
         .col-md-1
-        .col-md-2
-          .thumbnail
-            %img{:src => comment.user.profile.avatar, :alt => "avatar image", :width => 42, :height => 42 }
-        .col-md-8
+        .col-md-10
           .panel.panel-default
+            .panel-heading
+              .row
+                .col-md-1
+                  %img{:src => comment.user.profile.avatar, :alt => "avatar image", :width => 25, :height => 25 }
+                .col-md-11
+                  = comment.user.profile.first_name + " said:"
             .panel-body
               = comment.text
         .col-md-1

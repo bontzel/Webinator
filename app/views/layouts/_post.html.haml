@@ -14,7 +14,7 @@
               %h3.panel-title= post.user.profile.first_name + " said"
       .panel-body
         %p= post.text
-      = render "layouts/comments", :post => post 
+      = render "layouts/comments", :post => post, :unique_id => post.id.to_s
     /
       = form_for [current_user, post.wall, post, Comment.new], :class => "margin-fix" do |f|
         .input-group
