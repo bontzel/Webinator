@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
   has_many :friendships
   has_many :friends, :through => :friendships
   has_many :user_likes_posts
-  has_many :posts, :through => :user_likes_posts, :source => :postable, :source_type => 'Post'
-  has_many :comments, through => :user_likes_posts, :source => :postable, :source_type => 'Comment'
+  has_many :post_likes, :through => :user_likes_posts, :source => :likeable, :source_type => 'Post'
+  has_many :comment_likes, :through => :user_likes_posts, :source => :likeable, :source_type => 'Comment'
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   has_one :feed

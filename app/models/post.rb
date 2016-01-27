@@ -6,6 +6,6 @@ class Post < ActiveRecord::Base
   has_many :feed_histories, through: :feed_history_has_post
   has_many :users, :through => :user_likes_posts
   has_many :comments
-  has_many :user_likes_posts, :as => :postable
-  has_many :users, :through :user_likes_posts
+  has_many :user_likes_posts, :as => :likeable
+  has_many :users, :through => :user_likes_posts
 end
