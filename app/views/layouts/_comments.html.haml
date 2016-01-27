@@ -2,7 +2,12 @@
   .col-md-1
     .btn.btn-link Like
   .col-md-2
-    .btn.btn-link{"data-toggle" => "collapse", "data-target" => "#uniqueId" + unique_id } Comment
+    .btn.btn-link{"data-toggle" => "collapse", "data-target" => "#uniqueId" + unique_id }
+      - if !post.comments.blank?
+        = "Comment (" + post.comments.count.to_s + ")"
+      - else
+        Comment
+
   .col-md-9
 .collapse{:id => "uniqueId" + unique_id}
   - if !post.comments.blank?
