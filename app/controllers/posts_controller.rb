@@ -7,7 +7,10 @@ class PostsController < ApplicationController
   end
 
   def like
-    # current_user.post_likes << Post.find(params[:post_id])
+
+    post = Post.find(params[:_json])
+    current_user.post_likes << post
+
     respond_to do |format|
       format.json  { render :json => params[:_json] } # don't do msg.to_json
     end

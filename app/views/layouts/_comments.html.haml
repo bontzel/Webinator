@@ -1,9 +1,11 @@
 .row
-  .col-md-1
+  .col-md-2
     - if current_user.post_likes.where(:id => post.id).blank?
-      .btn.btn-link.post_like_button{:data => { post_id: post.id}} Like
+      .btn.btn-link.post_like_button{:data => { post_id: post.id, likes_count: UserLikesPost.where("id" => post.id).count.to_s }}
+        = "Like (" + UserLikesPost.where("id" => post.id).count.to_s + ")"
     - else
-      .btn.btn-link Liked!
+      .btn.btn-link
+        = "Liked! (" + UserLikesPost.where("id" => post.id).count.to_s + ")"
   .col-md-2
     .btn.btn-link{"data-toggle" => "collapse", "data-target" => "#uniqueId" + unique_id }
       - if !post.comments.blank?
