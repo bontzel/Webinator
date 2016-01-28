@@ -1,7 +1,7 @@
 .row
   .col-md-1
     - if current_user.post_likes.where(:id => post.id).blank?
-      = button_to "Like", { :controller => :posts, :action => :like, :post_id => post.id, :user_id => current_user.id}, :class => "btn btn-link", :method => :post
+      .btn.btn-link.post_like_button{:data => { post_id: post.id}} Like
     - else
       .btn.btn-link Liked!
   .col-md-2

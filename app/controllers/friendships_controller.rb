@@ -25,9 +25,9 @@ respond_to :html, :xml, :json
     end
 
     respond_to do |format|
-
       format.json  { render :json => params[:_json] } # don't do msg.to_json
     end
+    
   end
 
   def accept_friendship

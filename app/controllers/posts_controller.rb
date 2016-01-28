@@ -7,9 +7,9 @@ class PostsController < ApplicationController
   end
 
   def like
-    user = User.find(params[:user_id])
-    user.post_likes << Post.find(params[:post_id])
-
-    redirect_to :back
+    # current_user.post_likes << Post.find(params[:post_id])
+    respond_to do |format|
+      format.json  { render :json => params[:_json] } # don't do msg.to_json
+    end
   end
 end

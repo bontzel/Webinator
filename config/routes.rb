@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   patch 'friendships/read_requests' => 'friendships#read_requests'
   patch 'friendships/accept_friendship/:id' => 'friendships#accept_friendship'
   patch 'friendships/decline_friendship/:id' => 'friendships#decline_friendship'
-  post  'posts/:user_id/likes/:post_id' => 'posts#like'
+  post  'posts/likes' => 'posts#like'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
