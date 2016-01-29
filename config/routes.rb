@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :profiles
     resources :walls, only: [:show] do
       resources :posts, only: [:create] do
-        resources :comments, only: [:create]
+        resources :comments, only: [:create, :index]
       end
     end
     resources :friendships, only: [:create, :destroy]
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   patch 'friendships/accept_friendship/:id' => 'friendships#accept_friendship'
   patch 'friendships/decline_friendship/:id' => 'friendships#decline_friendship'
   post  'posts/like' => 'posts#like'
+  post  'comments/like' => 'comments#like'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

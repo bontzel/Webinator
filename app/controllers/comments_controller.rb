@@ -1,13 +1,24 @@
 class CommentsController < ApplicationController
+  respond_to :json
+
   def create
-    Comment.create(:text => params[:comment][:text], :user_id => current_user.id, :post_id => params[:post_id])
-    redirect_to :back
+    respond_to do |format|
+      format.json  { render :json => params[:_json] } # don't do msg.to_json
+    end
+  end
+
+  def index
+    @comment = Post.find(params[:post_id]).comments
+
+    respond_with @comment
   end
 
   def like
-    user = User.find(params[:user_id])
-    user.post_likes << Post.find(params[:post_id])
+    comment = Comment.find(params[:_json])
+    current_user.comment_likes << comment
 
-    redirect_to :back
+    respond_to do |format|
+      format.json  { render :json => params[:_json] } # don't do msg.to_json
+    end
   end
 end

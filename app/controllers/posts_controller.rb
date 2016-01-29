@@ -7,7 +7,6 @@ class PostsController < ApplicationController
   end
 
   def like
-
     post = Post.find(params[:_json])
     current_user.post_likes << post
 

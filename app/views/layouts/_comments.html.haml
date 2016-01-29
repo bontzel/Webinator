@@ -16,6 +16,8 @@
   .col-md-9
 .collapse{:id => "uniqueId" + unique_id}
   - if !post.comments.blank?
+    = react_component('CommentsView',{count: post.comments.count}, {comments: post.comments})
+  /
     - post.comments.each do |comment|
       .row
         .col-md-1
@@ -29,7 +31,17 @@
                   = comment.user.profile.first_name + " said:"
             .panel-body
               = comment.text
+              .row
+                .col-md-1
+                  - if current_user.comment_likes.where(:id => comment.id).blank?
+                    .btn.btn-link.comment_like_button.comment_margin_fix{:data => { comment_id: comment.id, likes_count: UserLikesPost.where("likeable_id" => comment.id).count.to_s}}
+                      = "Like (" + UserLikesPost.where("likeable_id" => comment.id).count.to_s + ")"
+                  - else
+                    .btn.btn-link.comment_margin_fix
+                      = "Liked! (" + UserLikesPost.where("likeable_id" => comment.id).count.to_s + ")"
+                .col-md-11
         .col-md-1
+/
   .row
     .col-md-1
     .col-md-10
