@@ -19,7 +19,7 @@ $( document ).ready(function() {
     });
   });
 
-  $('form').submit(function(e) {
+  $('form#post_comment').submit(function(e) {
     var valuesToSubmit = $(this).serialize();
     console.log("valuesToSubmit -> " + valuesToSubmit);
     console.log("action -> " + $(this).attr('action'));

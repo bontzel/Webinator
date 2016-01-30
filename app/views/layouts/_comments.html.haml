@@ -15,8 +15,10 @@
 
   .col-md-9
 .collapse{:id => "uniqueId" + unique_id}
-  - if !post.comments.blank?
-    = react_component('CommentsView',{count: post.comments.count}, {comments: post.comments})
+  = react_component('CommentsView',{count: post.comments.count,
+                                    user_id: post.user.id,
+                                    wall_id: post.wall.id,
+                                    post_id: post.id})
   /
     - post.comments.each do |comment|
       .row
