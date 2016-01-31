@@ -1,38 +1,63 @@
-var ButtonToolbar = ReactBootstrap.Button;
+var Button = ReactBootstrap.Button;
 var Grid = ReactBootstrap.Grid;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 var Panel = ReactBootstrap.Panel;
+var Input = ReactBootstrap.Input;
+var ButtonInput = ReactBootstrap.ButtonInput;
 
 
 
 var Comment = React.createClass({
 
+  handleLikeClick: function() {
+      console.log(this.props.comment.id);
+    $.ajax({
+      type: 'POST',
+      url: "/comments/like",
+      dataType: 'json',
+      data: this.props.comment,
+      success: function (data) {
+        console.log("Success!");
+        console.log(data);
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
   render: function() {
-    var CommentHeading = React.createClass({
-      render: function(){
-        return(
+    const CommentHeading = (
           <Row>
             <Col md={1}>
               <img src={this.props.comment.user.profile.avatar.avatar.url}  width="25" height="25"></img>
             </Col>
-            <Col md={11}>
+            <Col md={10}>
               {this.props.comment.user.profile.first_name} said:
             </Col>
           </Row>
         );
-      },
-    });
 
-    console.log(this.props.comment.user.profile.avatar.avatar);
     return (
       <Row>
         <Col md={1}></Col>
         <Col md={10}>
-          <Panel heading={CommentHeading}>
-            {this.props.comment.text}
+          <Panel header= {CommentHeading} >
+            <Row>
+              <Col md={12}>
+              {this.props.comment.text}
+            </Col>
+            </Row>
+            <Row>
+              <Col md={1}>
+                <Button bsStyle="link" onClick = {this.handleLikeClick}> Like </Button>
+              </Col>
+              <Col md={11}></Col>
+            </Row>
           </Panel>
         </Col>
+        <Col md={1}></Col>
       </Row>
     );
   }
@@ -73,7 +98,6 @@ var CommentForm = React.createClass({
   },
 
   handleSubmit: function(e) {
-    var text = JSON.stringify(this.state.comment);
     $.ajax({
       type: 'POST',
       url: this.props.url,
@@ -100,9 +124,21 @@ var CommentForm = React.createClass({
     return (
       <div>
         <form method="post" remote="true" onSubmit={this.handleSubmit}>
-          <textarea type="text" value = {value} onChange={this.handleChange} ></textarea>
-          <button type="submit"> Post Comment </button>
-      </form>
+          <Row>
+            <Col md={1}></Col>
+            <Col md={10}>
+              <Input type="textarea" value = {value} onChange={this.handleChange}></Input>
+            </Col>
+            <Col md={1}></Col>
+          </Row>
+          <Row>
+            <Col md={4}></Col>
+            <Col md={4}>
+              <ButtonInput type="submit" value="Post Comment!"></ButtonInput>
+            </Col>
+            <Col md={4}></Col>
+          </Row>
+        </form>
       </div>
     );
   }
@@ -155,8 +191,6 @@ var CommentsView = React.createClass({
   render: function() {
     return (
       <div>
-        <div>Count: {this.props.count}</div>
-        <h3> Comments: </h3>
         <CommentList comments = {this.state.comments} />
         <CommentForm url = {this.state.url} onPostSuccess = {this.addComment}/>
       </div>

@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
   end
 
   def like
-    comment = Comment.find(params[:_json])
+    comment = Comment.find(params[:id])
     current_user.comment_likes << comment
 
     respond_to do |format|
