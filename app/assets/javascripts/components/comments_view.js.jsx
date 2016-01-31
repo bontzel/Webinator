@@ -1,7 +1,39 @@
+var ButtonToolbar = ReactBootstrap.Button;
+var Grid = ReactBootstrap.Grid;
+var Row = ReactBootstrap.Row;
+var Col = ReactBootstrap.Col;
+var Panel = ReactBootstrap.Panel;
+
+
+
 var Comment = React.createClass({
+
   render: function() {
+    var CommentHeading = React.createClass({
+      render: function(){
+        return(
+          <Row>
+            <Col md={1}>
+              <img src={this.props.comment.user.profile.avatar.avatar.url}  width="25" height="25"></img>
+            </Col>
+            <Col md={11}>
+              {this.props.comment.user.profile.first_name} said:
+            </Col>
+          </Row>
+        );
+      },
+    });
+
+    console.log(this.props.comment.user.profile.avatar.avatar);
     return (
-      <p> {this.props.text} </p>
+      <Row>
+        <Col md={1}></Col>
+        <Col md={10}>
+          <Panel heading={CommentHeading}>
+            {this.props.comment.text}
+          </Panel>
+        </Col>
+      </Row>
     );
   }
 });
@@ -11,7 +43,7 @@ var CommentList = React.createClass({
   render: function () {
     var commentNodes = this.props.comments.map(function (comment, index) {
       return (
-        <Comment text = {comment.text} key={index} />
+        <Comment comment = {comment} key={index} />
         );
     });
 
