@@ -31,4 +31,12 @@ class CommentsController < ApplicationController
       format.json  { render :json => params[:_json] } # don't do msg.to_json
     end
   end
+
+  def check_for_like
+    @check = current_user.comment_likes.where( :id => params[:id]).present?
+
+    respond_to do |format|
+      format.json  { render :json => @check } # don't do msg.to_json
+    end
+  end
 end

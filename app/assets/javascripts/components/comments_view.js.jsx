@@ -8,9 +8,50 @@ var ButtonInput = ReactBootstrap.ButtonInput;
 
 
 
+
+var CommentLikeButton = React.createClass({
+  getInitialState: function() {
+    return {
+      liked: this.props.liked
+    };
+  },
+
+  render: function() {
+    console.log(this.props.liked);
+    if(this.props.liked)
+      return(
+        <Row>
+          <Col md={1}>
+            <Button bsStyle="link" className="comment_like" > Liked! </Button>
+          </Col>
+          <Col md={11}></Col>
+        </Row>
+      );
+    else
+      return(
+        <Row>
+          <Col md={1}>
+            <Button bsStyle="link" className="comment_like" onClick = {this.props.handleLikeClick}> Like </Button>
+          </Col>
+          <Col md={11}></Col>
+        </Row>
+      );
+  },
+});
+
 var Comment = React.createClass({
 
-  handleLikeClick: function() {
+  getInitialState: function() {
+    return {
+      liked: false,
+    };
+  },
+
+  componentDidMount: function() {
+    this.checkIfLiked();
+  },
+
+  handleLikeClick: function(e) {
       console.log(this.props.comment.id);
     $.ajax({
       type: 'POST',
@@ -20,6 +61,36 @@ var Comment = React.createClass({
       success: function (data) {
         console.log("Success!");
         console.log(data);
+        e.target.innerHTML = "Liked!";
+        this.setState({
+          liked: true
+        });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  checkIfLiked: function() {
+    //console.log("comment id -> " + this.props.comment.id);
+    var json = new Object();
+    json.id = this.props.comment.id;
+
+    console.log(json);
+    $.ajax({
+      type: "GET",
+      url: "/comments/check_for_like",
+      dataType: 'json',
+      contentType: 'application/json',
+      data: json,
+      success: function(isLiked) {
+        console.log("succes: " + isLiked);
+        if(isLiked) {
+          this.setState({
+            liked: true,
+          });
+        }
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -28,6 +99,7 @@ var Comment = React.createClass({
   },
 
   render: function() {
+    console.log("liked -> " + this.state.liked);
     const CommentHeading = (
           <Row>
             <Col md={1}>
@@ -49,12 +121,9 @@ var Comment = React.createClass({
               {this.props.comment.text}
             </Col>
             </Row>
-            <Row>
-              <Col md={1}>
-                <Button bsStyle="link" onClick = {this.handleLikeClick}> Like </Button>
-              </Col>
-              <Col md={11}></Col>
-            </Row>
+            <CommentLikeButton liked = {this.state.liked}
+                                handleLikeClick = {this.handleLikeClick}
+                                />
           </Panel>
         </Col>
         <Col md={1}></Col>

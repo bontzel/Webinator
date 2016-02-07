@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   patch 'friendships/decline_friendship/:id' => 'friendships#decline_friendship'
   post  'posts/like' => 'posts#like'
   post  'comments/like' => 'comments#like'
+  get 'comments/check_for_like' => 'comments#check_for_like'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
