@@ -4,4 +4,5 @@ class Comment < ActiveRecord::Base
   belongs_to :post
   has_many :user_likes_posts, :as => :likeable
   has_many :users, :through => :user_likes_posts
+  has_one :notification, :as => :notifiable
 end
