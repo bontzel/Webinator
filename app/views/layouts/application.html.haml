@@ -38,14 +38,21 @@
                   = submit_tag("Search", class: "btn btn-default")
                 = text_field_tag :q, nil, class: 'form-control'
 
-            %li.btn.btn-lg.dropdown
+            %li.btn.btn-lg.dropdown#notifications-widget{:data => { requests: new_notifications}}
               .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
               %span.glyphicon.glyphicon-globe
-              %span.badge.badge-super 0
+              - if @nots_count > 0
+                %span.badge.badge-super#notification-badge
+                  = @nots_count
               %ul.dropdown-menu
-                - (5...10).each do |i|
+                - if get_notifications.blank?
                   %li
-                    %a= i.to_s + "th notification"
+                    .panel.panel-default
+                      .panel-body
+                        You have no notifications!
+                - else
+                  - get_notifications.each do |notification|
+                    = render "layouts/notification", :notification => notification
 
 
             %li.btn.btn-lg.dropdown#requests-widget{:data => { requests: new_requests}}
