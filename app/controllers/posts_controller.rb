@@ -14,4 +14,8 @@ class PostsController < ApplicationController
       format.json  { render :json => params[:_json] } # don't do msg.to_json
     end
   end
+
+  def show
+    @post = Post.find(params[:id])
+  end
 end

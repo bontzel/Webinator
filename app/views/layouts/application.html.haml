@@ -38,18 +38,16 @@
                   = submit_tag("Search", class: "btn btn-default")
                 = text_field_tag :q, nil, class: 'form-control'
 
-            %li.btn.btn-lg.dropdown#notifications-widget{:data => { requests: new_notifications}}
+            %li.btn.btn-lg.dropdown#notifications-widget{:data => { notifications: new_notifications}}
               .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
               %span.glyphicon.glyphicon-globe
               - if @nots_count > 0
-                %span.badge.badge-super#notification-badge
+                %span.badge.badge-super#notifications-badge
                   = @nots_count
-              %ul.dropdown-menu
+              %ul.dropdown-menu.textfull.list-group
                 - if get_notifications.blank?
-                  %li
-                    .panel.panel-default
-                      .panel-body
-                        You have no notifications!
+                  %li.list-group-item
+                    You have no notifications!
                 - else
                   - get_notifications.each do |notification|
                     = render "layouts/notification", :notification => notification
@@ -61,15 +59,20 @@
               - if @reqs_count > 0
                 %span.badge.badge-super#requests-badge
                   = @reqs_count
-              %ul.dropdown-menu
+              %ul.dropdown-menu.textfull.list-group
                 - if pending_friend_requests.blank?
-                  %li
-                    .panel.panel-default
-                      .panel-body
-                        You have no more friend requests!
+                  %li.list-group-item
+                    You have no more friend requests!
                 - else
                   - pending_friend_requests.each do |request|
                     = render "layouts/friend_request", :request => request
+
+            %li.btn.btn-lg.dropdown
+              .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
+              %span.glyphicon.glyphicon-cog
+              %ul.dropdown-menu
+                %li
+                  = link_to 'Edit Account', edit_user_registration_path(current_user)
 
 
         %ul.nav.navbar-nav.navbar-right

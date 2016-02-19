@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   patch 'friendships/read_requests' => 'friendships#read_requests'
   patch 'friendships/accept_friendship/:id' => 'friendships#accept_friendship'
   patch 'friendships/decline_friendship/:id' => 'friendships#decline_friendship'
+  patch 'notifications/read_notifications/' => 'notifications#read_notifications'
   post  'posts/like' => 'posts#like'
   post  'comments/like' => 'comments#like'
   get 'comments/check_for_like' => 'comments#check_for_like'

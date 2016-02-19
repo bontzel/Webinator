@@ -1,0 +1,84 @@
+.row
+  .col-md-4
+  .col-md-4.profile_title
+    %h2= 'Edit ' + resource_name.to_s.humanize
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  .row
+    .col-md-4
+    .col-md-4
+      = f.label :email
+      %br
+      = f.email_field :email, autofocus: true, :class => 'form-control'
+    .col-md-4
+
+  .row
+    .col-md-4
+    .col-md-4
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div= 'Currently waiting confirmation for: ' + resource.unconfirmed_email
+    .col-md-4
+
+  .row
+    .col-md-4
+    .col-md-4
+      = f.label :password
+      %br
+      = f.password_field :password, autocomplete: "off", :class => 'form-control', placeholder: "Enter Password"
+    .col-md-4
+
+  .row
+    .col-md-4
+    .col-md-4
+      = f.label :password
+      %i (leave blank if you don't want to change it)
+      %br
+      = f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control', placeholder: "Enter New Password"
+    .col-md-4
+
+  .row
+    .col-md-4
+    .col-md-4
+      = f.label :password_confirmation
+      %br
+      = f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control', placeholder: "Enter Password Again"
+    .col-md-4
+
+  .row
+    .col-md-4
+    .col-md-4
+      = f.label :current_password
+      %i (we need your current password to confirm your changes)
+      %br
+      = f.password_field :current_password, autocomplete: "off", :class => 'form-control', placeholder: "Enter Current Password"
+    .col-md-4
+
+  %br
+  .row
+    .col-md-4
+    .col-md-4.actions
+      .row
+        .col-md-4
+        .col-md-4
+          = f.submit "Update", class: "btn btn-primary center-btn"
+        .col-md-4
+    .col-md-4
+
+  %br
+  .row
+    .col-md-4
+    .col-md-4
+      .row
+        .col-md-3
+        .col-md-6.profile_title
+          %h3 Cancel my account
+        .col-md-3
+      %br
+      .row
+        .col-md-8
+          %p
+            %label Unhappy?
+            = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-default"
+        .col-md-4
+        = link_to 'Back', :back, class: "btn btn-default center-btn pull-right"
+    .col-md-4
