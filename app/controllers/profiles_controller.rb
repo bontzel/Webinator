@@ -17,6 +17,8 @@ class ProfilesController < ApplicationController
       redirect_to new_user_profile_path(current_user.id)
     end
 
+
+
     if params[:id].blank?
       params[:user_id] = current_user.id
       params[:id] = current_user.profile.id
@@ -31,7 +33,10 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    byebug
     @profile = Profile.find(params[:id])
+
+    redirect_to :back
   end
 
 def update

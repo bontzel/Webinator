@@ -35,6 +35,21 @@
       .col-md-12
         .panel
           .panel-body
-            %p It's here
+            = form_for [current_user, @profile], url: {action: "edit"} do |f|
+              = f.label :first_name
+              %br
+              = f.text_field :first_name, class: "form-control"
+              %br
+              = f.label :last_name
+              %br
+              = f.text_field :last_name, class: "form-control"
+              %br
+              %label Upload Image:
+              %br
+              = f.file_field :avatar
+              %br
+              = f.label :birthday
+              %br
+              = f.submit "Update", class: "btn btn-primary"
 
   .col-md-4
