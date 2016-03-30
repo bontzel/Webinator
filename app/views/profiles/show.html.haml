@@ -21,6 +21,9 @@
           %li.list-group-item
             %label Last name:
             = @profile.last_name
+          %li.list-group-item
+            %label Birthday:
+            = @profile.birthday
           %br
           %br
           - if current_user.id == params[:user_id].to_i
@@ -35,7 +38,7 @@
       .col-md-12
         .panel
           .panel-body
-            = form_for [current_user, @profile], url: {action: "edit"} do |f|
+            = form_for [current_user, @profile], url: {action: "edit"}, method: :patch do |f|
               = f.label :first_name
               %br
               = f.text_field :first_name, class: "form-control"
@@ -49,6 +52,8 @@
               = f.file_field :avatar
               %br
               = f.label :birthday
+              %br
+              = f.date_field :birthday
               %br
               = f.submit "Update", class: "btn btn-primary"
 
