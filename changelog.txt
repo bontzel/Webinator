@@ -1,0 +1,6 @@
+changes 290:
+ - changelog file added
+changes 289:
+ - birthday implemented
+ - fixed notifications
+ - fixed seed
