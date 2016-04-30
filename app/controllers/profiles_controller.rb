@@ -44,6 +44,7 @@ def update
     @profile.first_name = params[:profile][:first_name]
     @profile.last_name = params[:profile][:last_name]
     @profile.avatar = params[:profile][:avatar]
+    @profile.birthday = params[:profile][:birthday]
     @profile.save
 
     flash[:notice] = "User profile succesfully updated!"

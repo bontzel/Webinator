@@ -11,6 +11,11 @@ class CommentsController < ApplicationController
       @comment = "failed"
     end
 
+    post = Post.find(@comment.post_id)
+
+    if @comment.user.id != post.user.id
+      Notification.create(:user_id => post.user.id, :actor_id => current_user.id, :notifiable_id => @comment.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
+    end
     # respond_with @comment
     respond_to do |format|
       format.json  { render :json => @comment } # don't do msg.to_json
@@ -26,6 +31,10 @@ class CommentsController < ApplicationController
   def like
     comment = Comment.find(params[:id])
     current_user.comment_likes << comment
+
+    if comment.user.id != current_user.id
+      Notification.create(:user_id => comment.user.id, :actor_id => current_user.id, :notifiable_id => comment.id, :notifiable_type => 'Comment', :message_type => 1, :seen => false)
+    end
 
     respond_to do |format|
       format.json  { render :json => params[:_json] } # don't do msg.to_json

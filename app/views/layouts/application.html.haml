@@ -77,7 +77,7 @@
 
         %ul.nav.navbar-nav.navbar-right
           - if current_user
-            %li= link_to "Sign out!", destroy_user_session_path
+            %li= link_to "Sign out!", destroy_user_session_path, :class => "main-link"
 
   - if notice
     %p.alert.alert-success= notice

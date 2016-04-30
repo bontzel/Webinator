@@ -14,9 +14,10 @@ $( document ).ready(function() {
   json.notifications = arr;
   var data = JSON.stringify(json)
 
-  console.log(json);
-  if(arr.count > 0) {
+  console.log(arr[0] + "----------------------------------------------");
+  if(arr.length > 0) {
     $('#notifications-widget').click(function() {
+      console.log(data + "----------------------------------------------");
       $.ajax({
         // alert('request sent');
         type: "PATCH",

@@ -38,7 +38,7 @@
       .col-md-12
         .panel
           .panel-body
-            = form_for [current_user, @profile], url: {action: "edit"}, method: :patch do |f|
+            = form_for [current_user, @profile], method: :patch do |f|
               = f.label :first_name
               %br
               = f.text_field :first_name, class: "form-control"

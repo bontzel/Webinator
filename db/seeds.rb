@@ -51,9 +51,20 @@ user1ToUser2Friendship = user1.friendships.build(:friend_id => user2.id, :pendin
 user2ToUser3Friendship = user2.friendships.build(:friend_id => user3.id, :pending => true, :accepted => false, :read => false)
 user3ToUser5Friendship = user3.friendships.build(:friend_id => user5.id, :pending => false, :accepted => false, :read => true)
 
+user1ToUser2Friendship.save
+user2ToUser3Friendship.save
+user3ToUser5Friendship.save
+
 post1 = Post.create(:text => "How was your holiday?",:user_id => user1.id, :wall_id => user2.wall.id)
-Comment.create(:text => "Good, I had fun!", :user_id => user2.id,  :post_id => post1.id)
+comment1 = Comment.create(:text => "Good, I had fun!", :user_id => user2.id,  :post_id => post1.id)
 post2 = Post.create(:text => "Life is good!", :user_id => user1.id, :wall_id => user1.wall.id)
-Comment.create(:text => "Yes indeed :D", :user_id => user2.id, :post_id => post2.id)
+comment2 = Comment.create(:text => "Yes indeed :D", :user_id => user2.id, :post_id => post2.id)
 post3 = Post.create(:text => "Hello France! :D", :user_id => user2.id, :wall_id => user2.wall.id)
-Comment.create(:text => "I envy you >.<", :user_id => user1.id, :post_id => post3.id)
+comment3 = Comment.create(:text => "I envy you >.<", :user_id => user1.id, :post_id => post3.id)
+
+user2.post_likes << post1
+
+Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id => post1.id, :notifiable_type => 'Post', :message_type => 0, :seen => false)
+Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id => comment1.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
+Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id => comment2.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
+Notification.create(:user_id => user2.id, :actor_id => user1.id, :notifiable_id => comment3.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
