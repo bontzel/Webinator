@@ -1,4 +1,4 @@
-.row
+.row.feed_title
   .col-md-4
   .col-md-4.profile_title
     - if current_user.id == params[:user_id].to_i
@@ -6,6 +6,7 @@
     - elsif
       %h2= @profile.last_name + "'s Profile"
   .col-md-4
+%br
 .row
   .col-md-4
   .col-md-4
@@ -26,14 +27,18 @@
             = @profile.birthday
           %br
           %br
-          - if current_user.id == params[:user_id].to_i
-            .btn.btn-default{"data-toggle" => "collapse", "data-target" => "#collapsable"} Edit Your Profile
-          - elsif @friendship.blank?
-            = link_to "Add Friend",  user_friendships_path(:user_id => current_user.id, :friend_id => params[:user_id]), :method => :post
-          - elsif @friendship.accepted?
-            = link_to "Unfriend", user_friendship_path(current_user.id, @friendship.id), :method => :delete
-          - else
-            = link_to "Accept Friend", { controller: 'friendships', action: 'accept_friendship', id: @friendship.id }, :method => :patch
+          .row
+            .col-md-4
+            .col-md-4
+              - if current_user.id == params[:user_id].to_i
+                .btn.btn-default{"data-toggle" => "collapse", "data-target" => "#collapsable"} Edit Your Profile
+              - elsif @friendship.blank?
+                = link_to "Add Friend",  user_friendships_path(:user_id => current_user.id, :friend_id => params[:user_id]), :method => :post, :class => "btn btn-primary"
+              - elsif @friendship.accepted?
+                = link_to "Unfriend", user_friendship_path(current_user.id, @friendship.id), :method => :delete, :class => "btn btn-default"
+              - else
+                = link_to "Accept Friend", { controller: 'friendships', action: 'accept_friendship', id: @friendship.id }, :method => :patch, :class => "btn btn-primary"
+            .col-md-4
     .row.collapse{:id => "collapsable"}
       .col-md-12
         .panel

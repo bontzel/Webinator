@@ -1,0 +1,10 @@
+.row.feed_title
+  .col-md-4
+  .col-md-4.title_column
+    .h2 Your Feed
+  .col-md-4
+
+%br
+
+- @posts.each do |post|
+  = render "layouts/post", :post => post

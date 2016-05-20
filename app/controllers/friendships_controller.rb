@@ -4,7 +4,7 @@ respond_to :html, :xml, :json
   def create
     @friendship = current_user.friendships.build(:friend_id => params[:friend_id], :pending => true, :accepted => false, :read => false)
     if @friendship.save
-      flash[:notice] = "Added friend."
+      flash[:notice] = "Friend request sent!"
       redirect_to root_url
     else
       flash[:error] = "Unable to add friend."
@@ -27,7 +27,7 @@ respond_to :html, :xml, :json
     respond_to do |format|
       format.json  { render :json => params[:_json] } # don't do msg.to_json
     end
-    
+
   end
 
   def accept_friendship

@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_one :feed_history, through: :feed
   has_many :comments
   has_one :notification
+  has_one :user_friends_preferences
 
   accepts_nested_attributes_for :feed_history,
     :reject_if => :all_blank,
