@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   post  'posts/like' => 'posts#like'
   post  'comments/like' => 'comments#like'
   get 'comments/check_for_like' => 'comments#check_for_like'
+  get 'users/:user_id/feed_histories/:id/sort_by_date' => 'feed_histories#sort_by_date'
+  get 'users/:user_id/feed_histories/:id/sort_by_recommended' => 'feed_histories#sort_by_recommended'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

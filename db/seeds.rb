@@ -50,10 +50,16 @@ feedHistory5 = FeedHistory.create(:feed_id => feed5.id)
 user1ToUser2Friendship = user1.friendships.build(:friend_id => user2.id, :pending => false, :accepted => true, :read => true)
 user2ToUser3Friendship = user2.friendships.build(:friend_id => user3.id, :pending => true, :accepted => false, :read => false)
 user3ToUser5Friendship = user3.friendships.build(:friend_id => user5.id, :pending => false, :accepted => false, :read => true)
+user1ToUser3Friendship = user1.friendships.build(:friend_id => user3.id, :pending => false, :accepted => true, :read => true)
+user1ToUser4Friendship = user1.friendships.build(:friend_id => user4.id, :pending => false, :accepted => true, :read => true)
+user1ToUser5Friendship = user1.friendships.build(:friend_id => user5.id, :pending => false, :accepted => true, :read => true)
 
 user1ToUser2Friendship.save
 user2ToUser3Friendship.save
 user3ToUser5Friendship.save
+user1ToUser3Friendship.save
+user1ToUser4Friendship.save
+user1ToUser5Friendship.save
 
 post1 = Post.create(:text => "How was your holiday?",:user_id => user1.id, :wall_id => user2.wall.id)
 comment1 = Comment.create(:text => "Good, I had fun!", :user_id => user2.id,  :post_id => post1.id)
@@ -61,6 +67,35 @@ post2 = Post.create(:text => "Life is good!", :user_id => user1.id, :wall_id => 
 comment2 = Comment.create(:text => "Yes indeed :D", :user_id => user2.id, :post_id => post2.id)
 post3 = Post.create(:text => "Hello France! :D", :user_id => user2.id, :wall_id => user2.wall.id)
 comment3 = Comment.create(:text => "I envy you >.<", :user_id => user1.id, :post_id => post3.id)
+
+count = 1
+
+
+ufp1 = UserFriendsPreference.create(:user_id => user1.id, :entries => [])
+
+3.times do
+  user1.post_likes << Post.create(:text => "Text no. #{count}.", :user_id => user2.id, :wall_id => user2.wall.id)
+  count = count + 1
+end
+
+ufp1.entries.push("2:3")
+
+5.times do
+  user1.post_likes << Post.create(:text => "Text no. #{count}.", :user_id => user3.id, :wall_id => user3.wall.id)
+  count = count + 1
+end
+
+ufp1.entries.push("3:5")
+
+10.times do
+  user1.post_likes << Post.create(:text => "Text no. #{count}.", :user_id => user4.id, :wall_id => user4.wall.id)
+  count = count + 1
+end
+
+ufp1.entries.push("4:10")
+
+ufp1.save
+
 
 user2.post_likes << post1
 
