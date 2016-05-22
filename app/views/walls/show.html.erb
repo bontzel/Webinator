@@ -7,13 +7,27 @@
   </div>
   <div class="panel panel-default">
     <div class="panel-body">
-      <%- if @posts %>
-        <% @posts.each do |post| %>
-          <%= render "layouts/post", :post => post %>
-        <% end %>
-      <% else %>
-        <div class="alert alert-info" role="alert"> There are no posts on your wall! </div>
-      <% end -%>
+      <div class="row">
+        <div class="col-md-9">
+          <%- if @posts %>
+            <% @posts.each do |post| %>
+              <%= render "layouts/post", :post => post %>
+            <% end %>
+          <% else %>
+            <div class="alert alert-info" role="alert"> There are no posts on your wall! </div>
+          <% end -%>
+        </div>
+        <div class="col-md-3">
+          <h5> Recommended Users </h5>
+          <%- if @relevantPopularUsers %>
+            <% @relevantPopularUsers.each do |user| %>
+              <%= render "layouts/userPartial", :user => user %>
+            <%end%>
+          <% else %>
+            <div class="alert alert-info" role="alert"> We have no recommended users for you! Yet! </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

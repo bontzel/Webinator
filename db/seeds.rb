@@ -74,7 +74,10 @@ count = 1
 ufp1 = UserFriendsPreference.create(:user_id => user1.id, :entries => [])
 
 3.times do
-  user1.post_likes << Post.create(:text => "Text no. #{count}.", :user_id => user2.id, :wall_id => user2.wall.id)
+  postx = Post.create(:text => "Text no. #{count}.", :user_id => user2.id, :wall_id => user2.wall.id)
+  user1.post_likes << postx
+  user3.post_likes << postx
+  user4.post_likes << postx
   count = count + 1
 end
 
@@ -98,6 +101,24 @@ ufp1.save
 
 
 user2.post_likes << post1
+
+UserPopularity.create(:user_id => user4.id, :likers => [user1.id])
+UserPopularity.create(:user_id => user3.id, :likers => [user1.id])
+UserPopularity.create(:user_id => user5.id, :likers => [user1.id])
+UserPopularity.create(:user_id => user1.id, :likers => [user2.id])
+UserPopularity.create(:user_id => user2.id, :likers => [user1.id, user3.id, user4.id])
+
+user4.likers_count = 1
+user3.likers_count = 1
+user5.likers_count = 1
+user1.likers_count = 1
+user2.likers_count = 3
+
+user4.save
+user3.save
+user5.save
+user1.save
+user2.save
 
 Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id => post1.id, :notifiable_type => 'Post', :message_type => 0, :seen => false)
 Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id => comment1.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)

@@ -1,0 +1,12 @@
+.row
+  .col-md-1
+  .col-md-10
+    .panel.panel-default
+      .panel-body
+        .row
+          .col-md-4
+            .thumbnail
+              %img{:src => user.profile.avatar, :alt => "avatar image", :width => 50, :height => 50 }
+          .col-md-8
+            = link_to user.profile.first_name.to_s + " " + user.profile.last_name.to_s, user_profile_path(user.id, user.profile.id)
+  .col-md-1

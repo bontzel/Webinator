@@ -37,6 +37,18 @@ class CommentsController < ApplicationController
       Notification.create(:user_id => comment.user.id, :actor_id => current_user.id, :notifiable_id => comment.id, :notifiable_type => 'Comment', :message_type => 1, :seen => false)
       current_user.comment_likes << comment
 
+      if UserPopularity.where(:user_id => comment.user.id).empty?
+        UserPopularity.create(:user_id => comment.user.id, :likers => [current_user.id])
+      else
+        @userPopularity = UserPopularity.where(:user_id => comment.user.id).first
+        if !@userPopularity.likers.any?{ |id| id == current_user.id }
+          @userPopularity.likers << current_user.id
+          @userPopularity.save
+          comment.user.likers_count = comment.user.likers_count + 1
+          comment.user.save
+        end
+      end
+
       if UserFriendsPreference.exists?(:user_id => current_user.id)
 
         @ufp = UserFriendsPreference.where(:user_id => current_user.id).first

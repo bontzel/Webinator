@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521180750) do
+ActiveRecord::Schema.define(version: 20160522144334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,15 @@ ActiveRecord::Schema.define(version: 20160521180750) do
   add_index "user_likes_posts", ["likeable_type", "likeable_id"], name: "index_user_likes_posts_on_likeable_type_and_likeable_id", using: :btree
   add_index "user_likes_posts", ["user_id"], name: "index_user_likes_posts_on_user_id", using: :btree
 
+  create_table "user_popularities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "likers",                  array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_popularities", ["user_id"], name: "index_user_popularities_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -134,6 +143,7 @@ ActiveRecord::Schema.define(version: 20160521180750) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "likers_count"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -159,5 +169,6 @@ ActiveRecord::Schema.define(version: 20160521180750) do
   add_foreign_key "profiles", "users"
   add_foreign_key "user_friends_preferences", "users"
   add_foreign_key "user_likes_posts", "users"
+  add_foreign_key "user_popularities", "users"
   add_foreign_key "walls", "users"
 end
