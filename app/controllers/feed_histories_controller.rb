@@ -65,8 +65,6 @@ class FeedHistoriesController < ApplicationController
       @posts.sort_by{ |post| post.created_at }
     end
 
-    console
-
   end
 
   def sort_by_date

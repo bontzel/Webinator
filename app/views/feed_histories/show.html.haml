@@ -3,7 +3,7 @@
   .col-md-4.title_column
     .h2 Your Feed
   .col-md-4
-    .dropdown
+    .dropdown.pull-right#dropdownFeedSort
       %button.btn.btn-default.dropdown-toggle#sortDropdownMenu{:type => "button", 'data-toggle' => :dropdown, 'aria-haspopup' => 'true'}
         = @selected
         %span.caret

@@ -61,6 +61,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cbdea', end
   font-size: 25px;
 }
 
+
+
 .drop-fix {
   position: absolute !important;
   top: 0;
@@ -68,6 +70,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cbdea', end
   width: 50px;
   height: 50px;
   z-index: 10;
+}
+
+@media (max-width: 767px) {
+ .drop-fix {
+   width: 766px;
+ }
+
+ #editAccountListItem {
+   background-color: white;
+ }
 }
 
 .button_to-fix {
@@ -105,4 +117,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cbdea', end
   background: -webkit-linear-gradient(top,  #18467a 13%,#206dac 87%,#19609f 95%,#3d98dd 100%);
   background: linear-gradient(to bottom,  #18467a 13%,#206dac 87%,#19609f 95%,#3d98dd 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#18467a', endColorstr='#3d98dd',GradientType=0 );
+}
+
+.navbar-header .navbar-toggle .icon-bar {
+    background-color: white;
 }
