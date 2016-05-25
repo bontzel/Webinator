@@ -2,10 +2,10 @@ class PostsController < ApplicationController
 
   def create
       @wall = Wall.find(params[:wall_id])
-      Post.create(:text => params[:post][:text], :user_id => current_user.id, :wall_id => @wall.id)
+      @post = Post.create(:text => params[:post][:text], :user_id => current_user.id, :wall_id => @wall.id)
 
       if @wall.id != current_user.wall.id
-        Notification.create(:user_id => @wall.user.id, :actor_id => current_user.id, :notifiable_id => post.id, :notifiable_type => 'Post', :message_type => 1, :seen => false)
+        Notification.create(:user_id => @wall.user.id, :actor_id => current_user.id, :notifiable_id => @post.id, :notifiable_type => 'Post', :message_type => 1, :seen => false)
       end
 
       redirect_to :back

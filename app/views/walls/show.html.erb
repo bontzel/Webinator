@@ -1,7 +1,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
-      <h2> Your wall! </h2>
+      <%- if current_user.id == @wall.user.id %>
+        <h2> Your wall! </h2>
+      <% else %>
+        <h2>
+          <%= link_to @wall.user.profile.first_name + " " + @wall.user.profile.last_name, user_profile_path(@wall.user.id, @wall.user.profile.id) %>
+        </h2>
+      <% end %>
     </div>
     <button id="postButton" type="button" class="btn btn-primary pull-right margin-right">Post on this wall</button>
   </div>
@@ -19,7 +25,7 @@
         </div>
         <div class="col-md-3">
           <h5> Recommended Users </h5>
-          <%- if @relevantPopularUsers %>
+          <%- if !@relevantPopularUsers.empty? %>
             <% @relevantPopularUsers.each do |user| %>
               <%= render "layouts/userPartial", :user => user %>
             <%end%>

@@ -2,9 +2,15 @@
 //# All this logic will automatically be available in application.js.
 //# You can use CoffeeScript in this file: http://coffeescript.org/
 
-$( document ).ready(function() {
+var ready;
+ready = function() {
+
   $('#postButton').click(function() {
     $('#postPopUp').removeClass("hidden");
     $('#coverer').addClass("cover");
   });
-});
+
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
