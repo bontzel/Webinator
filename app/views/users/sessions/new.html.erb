@@ -15,14 +15,23 @@
             <%= f.password_field :password, autocomplete: "off", :class => "form-control" %>
           </div>
 
-          <% if devise_mapping.rememberable? -%>
-            <div class="checkbox">
-              <label>
-                <%= f.check_box :remember_me %> Remember me
-              </label>
+          <div class="row">
+            <div class="col-md-5">
+              <% if devise_mapping.rememberable? -%>
+                <div class="checkbox">
+                  <label>
+                    <%= f.check_box :remember_me %> Remember me
+                  </label>
+                </div>
+              <% end -%>
             </div>
-          <% end -%>
-
+            <div class="col-md-7">
+              <div class="pull-right">
+                <span class="label label-info a-little-margin">Forgot your password? </span>
+                <%= link_to "Reset!", new_user_password_path(resource_name) %>
+              </div>
+            </div>
+          </div>
           <div class="actions">
             <%= f.submit "Log in", :class => "btn btn-primary" %>
 

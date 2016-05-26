@@ -18,7 +18,11 @@ skip_before_filter :verify_authenticity_token, :only => :create
   # end
 
   def after_sign_in_path_for(resource)
-    user_profile_path(resource.id, resource.profile.id)
+    if resource.profile
+      user_profile_path(resource.id, resource.profile.id)
+    else
+      new_user_profile_path(resource.id)
+    end
   end
 
   # protected
