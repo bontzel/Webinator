@@ -47,6 +47,18 @@ wall5 = Wall.create(:user_id => user5.id)
 feed5 = Feed.create(:user_id => user5.id)
 feedHistory5 = FeedHistory.create(:feed_id => feed5.id)
 
+user1.skip_confirmation!
+user2.skip_confirmation!
+user3.skip_confirmation!
+user4.skip_confirmation!
+user5.skip_confirmation!
+
+user1.save!
+user2.save!
+user3.save!
+user4.save!
+user5.save!
+
 user1ToUser2Friendship = user1.friendships.build(:friend_id => user2.id, :pending => false, :accepted => true, :read => true)
 user2ToUser3Friendship = user2.friendships.build(:friend_id => user3.id, :pending => true, :accepted => false, :read => false)
 user3ToUser5Friendship = user3.friendships.build(:friend_id => user5.id, :pending => false, :accepted => false, :read => true)
