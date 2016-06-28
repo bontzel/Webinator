@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160526010632) do
+ActiveRecord::Schema.define(version: 20160628112201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,14 @@ ActiveRecord::Schema.define(version: 20160526010632) do
     t.boolean  "read"
   end
 
+  create_table "groups", force: :cascade do |t|
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "admin_id"
+    t.string   "title"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "actor_id"
@@ -100,6 +108,16 @@ ActiveRecord::Schema.define(version: 20160526010632) do
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
+  create_table "subcriptions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "subcriptions", ["group_id"], name: "index_subcriptions_on_group_id", using: :btree
+  add_index "subcriptions", ["user_id"], name: "index_subcriptions_on_user_id", using: :btree
 
   create_table "user_friends_preferences", force: :cascade do |t|
     t.integer  "user_id"
@@ -168,10 +186,13 @@ ActiveRecord::Schema.define(version: 20160526010632) do
   add_foreign_key "feed_history_has_posts", "feed_histories"
   add_foreign_key "feed_history_has_posts", "posts"
   add_foreign_key "feeds", "users"
+  add_foreign_key "groups", "users", column: "admin_id"
   add_foreign_key "notifications", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "posts", "walls"
   add_foreign_key "profiles", "users"
+  add_foreign_key "subcriptions", "groups"
+  add_foreign_key "subcriptions", "users"
   add_foreign_key "user_friends_preferences", "users"
   add_foreign_key "user_likes_posts", "users"
   add_foreign_key "user_popularities", "users"

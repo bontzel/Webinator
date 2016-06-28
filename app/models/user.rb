@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
   has_many :comments
   has_one :notification
   has_one :user_friends_preferences
+	
+	belongs_to :groups, class_name: 'User'
+	has_many :groups, :through => :subscriptions
+	
 
   accepts_nested_attributes_for :feed_history,
     :reject_if => :all_blank,
