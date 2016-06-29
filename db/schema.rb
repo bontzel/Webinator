@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628112201) do
+ActiveRecord::Schema.define(version: 20160629134625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,15 +109,15 @@ ActiveRecord::Schema.define(version: 20160628112201) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
-  create_table "subcriptions", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "group_id"
+  create_table "subscriptions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "group_id"
   end
 
-  add_index "subcriptions", ["group_id"], name: "index_subcriptions_on_group_id", using: :btree
-  add_index "subcriptions", ["user_id"], name: "index_subcriptions_on_user_id", using: :btree
+  add_index "subscriptions", ["group_id"], name: "index_subscriptions_on_group_id", using: :btree
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
   create_table "user_friends_preferences", force: :cascade do |t|
     t.integer  "user_id"
@@ -173,12 +173,13 @@ ActiveRecord::Schema.define(version: 20160628112201) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "walls", force: :cascade do |t|
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "walled_id"
+    t.string   "walled_type"
   end
 
-  add_index "walls", ["user_id"], name: "index_walls_on_user_id", using: :btree
+  add_index "walls", ["walled_id"], name: "index_walls_on_walled_id", using: :btree
 
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
@@ -191,10 +192,9 @@ ActiveRecord::Schema.define(version: 20160628112201) do
   add_foreign_key "posts", "users"
   add_foreign_key "posts", "walls"
   add_foreign_key "profiles", "users"
-  add_foreign_key "subcriptions", "groups"
-  add_foreign_key "subcriptions", "users"
+  add_foreign_key "subscriptions", "groups"
+  add_foreign_key "subscriptions", "users"
   add_foreign_key "user_friends_preferences", "users"
   add_foreign_key "user_likes_posts", "users"
   add_foreign_key "user_popularities", "users"
-  add_foreign_key "walls", "users"
 end

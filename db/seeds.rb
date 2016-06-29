@@ -10,7 +10,7 @@ User.new({ :email => "user1@users.com", :password => "pass1234", :password_confi
 user1 = User.find(1)
 
 profile1 = Profile.create(:user_id => user1.id, :first_name => "John", :last_name => "Doe")
-wall1 = Wall.create(:user_id => user1.id)
+user1.wall = Wall.create()
 feed1 = Feed.create(:user_id => user1.id)
 feedHistory1 = FeedHistory.create(:feed_id => feed1.id)
 
@@ -18,7 +18,7 @@ User.new({ :email => "user2@users.com", :password => "pass1234", :password_confi
 user2 = User.find(2)
 
 profile2 = Profile.create(:user_id => user2.id, :first_name => "Mark", :last_name => "Johnson")
-wall2 = Wall.create(:user_id => user2.id)
+user2.wall = Wall.create()
 feed2 = Feed.create(:user_id => user2.id)
 feedHistory2 = FeedHistory.create(:feed_id => feed2.id)
 
@@ -26,7 +26,7 @@ User.new({ :email => "user3@users.com", :password => "pass1234", :password_confi
 user3 = User.find(3)
 
 profile3 = Profile.create(:user_id => user3.id, :first_name => "Bill", :last_name => "Collin")
-wall3 = Wall.create(:user_id => user3.id)
+user3.wall = Wall.create()
 feed3 = Feed.create(:user_id => user3.id)
 feedHistory3 = FeedHistory.create(:feed_id => feed3.id)
 
@@ -35,7 +35,7 @@ User.new({ :email => "user4@users.com", :password => "pass1234", :password_confi
 user4 = User.find(4)
 
 profile4 = Profile.create(:user_id => user4.id, :first_name => "Ana", :last_name => "McKenzie")
-wall4 = Wall.create(:user_id => user4.id)
+user4.wall = Wall.create()
 feed4 = Feed.create(:user_id => user4.id)
 feedHistory4 = FeedHistory.create(:feed_id => feed4.id)
 
@@ -43,7 +43,7 @@ User.new({ :email => "user5@users.com", :password => "pass1234", :password_confi
 user5 = User.find(5)
 
 profile5 = Profile.create(:user_id => user5.id, :first_name => "Joe", :last_name => "Dickens")
-wall5 = Wall.create(:user_id => user5.id)
+user5.wall = Wall.create()
 feed5 = Feed.create(:user_id => user5.id)
 feedHistory5 = FeedHistory.create(:feed_id => feed5.id)
 

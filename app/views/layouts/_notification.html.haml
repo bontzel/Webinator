@@ -1,11 +1,11 @@
 %li.list-group-item
 	- if notification.notifiable_type == 'Post'
 		- if notification.message_type == 0
-			= link_to notification.actor.profile.first_name + " has liked your post!", user_wall_post_path(notification.notifiable.wall.user.id, notification.notifiable.wall.id, notification.notifiable.id)
+			= link_to notification.actor.profile.first_name + " has liked your post!", user_wall_post_path(notification.notifiable.wall.walled.id, notification.notifiable.wall.id, notification.notifiable.id)
 		- else
-			= link_to notification.actor.profile.first_name + " has posted on your wall!", user_wall_post_path(notification.notifiable.wall.user.id, notification.notifiable.wall.id, notification.notifiable.id)
+			= link_to notification.actor.profile.first_name + " has posted on your wall!", user_wall_post_path(notification.notifiable.wall.walled.id, notification.notifiable.wall.id, notification.notifiable.id)
 	- else
 		- if notification.message_type == 1  
-			= link_to notification.actor.profile.first_name + " has liked your comment!", user_wall_post_path(notification.notifiable.post.wall.user.id, notification.notifiable.post.wall.id, notification.notifiable.post.id)
+			= link_to notification.actor.profile.first_name + " has liked your comment!", user_wall_post_path(notification.notifiable.post.wall.walled.id, notification.notifiable.post.wall.id, notification.notifiable.post.id)
 		- else
-			= link_to notification.actor.profile.first_name + " has commented on your post!", user_wall_post_path(notification.notifiable.post.wall.user.id, notification.notifiable.post.wall.id, notification.notifiable.post.id)
+			= link_to notification.actor.profile.first_name + " has commented on your post!", user_wall_post_path(notification.notifiable.post.wall.walled.id, notification.notifiable.post.wall.id, notification.notifiable.post.id)

@@ -16,7 +16,7 @@
             - if current_user.wall.id == post.wall.id
               %h6 on your wall
             - else
-              %h6= "on " + post.wall.user.profile.last_name + "'s wall"
+              %h6= "on " + post.wall.walled.profile.last_name + "'s wall"
       .panel-body
         %p= post.text
       = render "layouts/comments", :post => post, :unique_id => post.id.to_s

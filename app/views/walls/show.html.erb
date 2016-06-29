@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
-      <%- if current_user.id == @wall.user.id %>
+      <%- if current_user.id == @wall.walled.id %>
         <h2> Your wall! </h2>
       <% else %>
         <h2>
-          <%= link_to @wall.user.profile.first_name + " " + @wall.user.profile.last_name, user_profile_path(@wall.user.id, @wall.user.profile.id) %>
+          <%= link_to @wall.walled.profile.first_name + " " + @wall.walled.profile.last_name, user_profile_path(@wall.walled.id, @wall.walled.profile.id) %>
         </h2>
       <% end %>
     </div>

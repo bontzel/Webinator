@@ -10,8 +10,17 @@ module ApplicationHelper
   end
 
   def get_active_link(controller, model)
-    if params[:controller] == controller &&
-       params[:user_id] == model.user_id.to_s
+    if params[:controller] == controller 
+			@model = model
+			if model.class.name == "Wall"
+				if params[:user_id] == model.walled_id.to_s
+						return "nav-bar-link-active"
+				end
+			else
+				if params[:user_id] == model.user_id.to_s
+						return "nav-bar-link-active"
+				end
+			end
        return "nav-bar-link-active"
     end
 

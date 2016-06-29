@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
-  has_one :wall
+  has_one :wall, as: :walled
   has_many :posts
   has_one :profile
   devise :database_authenticatable, :registerable,
@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
   has_one :notification
   has_one :user_friends_preferences
 	
-	belongs_to :groups, class_name: 'User'
+	has_many :owned_groups, foreign_key: :admin_id, class_name: 'Group'
+	has_many :subscriptions
 	has_many :groups, :through => :subscriptions
 	
 
