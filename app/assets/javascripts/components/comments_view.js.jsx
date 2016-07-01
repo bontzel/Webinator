@@ -7,8 +7,6 @@ var Input = ReactBootstrap.Input;
 var ButtonInput = ReactBootstrap.ButtonInput;
 
 
-
-
 var CommentLikeButton = React.createClass({
   getInitialState: function() {
     return {

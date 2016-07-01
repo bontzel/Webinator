@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   root 'profiles#index'
 
   resources :users do
+		resources :groups
     resources :profiles
     resources :walls, only: [:show] do
       resources :posts, only: [:create, :show] do

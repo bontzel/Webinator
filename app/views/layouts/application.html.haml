@@ -29,6 +29,15 @@
 
           / Feed link
           =render "layouts/main_link", :name => "feed", :controller => "feed_histories", :model => "feed_history", :path => "feed_history"
+					
+          -# Groups link
+          - unless current_user.nil?
+            - if params[:controller] == "groups"
+              %li{ :class => "nav-bar-link-active"}
+                = link_to "Your groups", user_groups_path(current_user.id), :method => :get, :class => "main-link"
+            - else
+              %li{ :class => "main-link"}
+                = link_to "Your groups", user_groups_path(current_user.id), :method => :get, :class => "main-link"
 
           / user search
           - if current_user

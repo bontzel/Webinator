@@ -16,7 +16,9 @@ module ApplicationHelper
 				if params[:user_id] == model.walled_id.to_s
 						return "nav-bar-link-active"
 				end
-			else
+			elsif model.class.name == "Group"
+        return "nav-bar-link-active"
+      else
 				if params[:user_id] == model.user_id.to_s
 						return "nav-bar-link-active"
 				end

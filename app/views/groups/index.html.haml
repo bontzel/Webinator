@@ -1,0 +1,32 @@
+.row.feed_title
+  .col-md-4
+  .col-md-4.profile_title
+    %h2 Your Groups
+  .col-md-3
+  .col-md-1
+    =button_to "Create group", new_user_group_path(current_user.id), :class => "btn btn-default", :method => :get
+%br
+.row
+  .col-md-8
+    .row
+      .col-md-3
+      .col-md-6.profile_title
+        %h2 Subscribed groups
+        .row
+          .col-md-12
+            -if @groups.blank?
+              .alert.alert-warning You are not subscribed to any groups
+            -else 
+              = @groups.each do |group|
+                - link_to group.title, user_group_path(current_user.id, group.id)
+      .col-md-3
+  .col-md-4
+    .row
+      .col-md-3
+      .col-md-6.profile_title
+        %h2 Recommended
+        .row
+          .col-md-12
+            -if @recommended_groups.blank?
+              .alert.alert-warning We do not have any recommended groups for you yet
+      .col-md-3

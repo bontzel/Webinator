@@ -29,9 +29,6 @@ gem 'json'
 
 gem 'react-bootstrap-rails'
 
-gem 'bootstrap-datepicker-rails'
-
-
 gem "rails-erd"
 
 
@@ -45,7 +42,7 @@ gem "rails-erd"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'react-rails', '~> 1.5.0'
+gem 'react-rails'
 
 gem 'carrierwave'
 
