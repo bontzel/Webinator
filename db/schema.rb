@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629134625) do
+ActiveRecord::Schema.define(version: 20160714143450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,18 @@ ActiveRecord::Schema.define(version: 20160629134625) do
     t.datetime "updated_at",  null: false
     t.integer  "admin_id"
     t.string   "title"
+    t.string   "imageSource"
   end
+
+  create_table "groups_have_tags", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "groups_have_tags", ["group_id"], name: "index_groups_have_tags_on_group_id", using: :btree
+  add_index "groups_have_tags", ["tag_id"], name: "index_groups_have_tags_on_tag_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
@@ -118,6 +129,12 @@ ActiveRecord::Schema.define(version: 20160629134625) do
 
   add_index "subscriptions", ["group_id"], name: "index_subscriptions_on_group_id", using: :btree
   add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "user_friends_preferences", force: :cascade do |t|
     t.integer  "user_id"
@@ -188,6 +205,8 @@ ActiveRecord::Schema.define(version: 20160629134625) do
   add_foreign_key "feed_history_has_posts", "posts"
   add_foreign_key "feeds", "users"
   add_foreign_key "groups", "users", column: "admin_id"
+  add_foreign_key "groups_have_tags", "groups"
+  add_foreign_key "groups_have_tags", "tags"
   add_foreign_key "notifications", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "posts", "walls"

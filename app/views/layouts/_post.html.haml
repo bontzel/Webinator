@@ -1,28 +1,31 @@
 .row
-  .col-md-4
-  .col-md-4
-    .panel.panel-default
-      .panel-heading
-        .row
-          .col-md-2
-            .thumbnail
-              %img{:src => post.user.profile.avatar, :alt => "avatar image", :width => 50, :height => 50 }
-          .col-md-7
-            - if current_user.id == post.user.id
-              %h3.panel-title You said:
-            - else
-              %h3.panel-title= post.user.profile.first_name + " said"
-          .col-md-3
-            - if current_user.wall.id == post.wall.id
-              %h6 on your wall
-            - else
-              %h6= "on " + post.wall.walled.profile.last_name + "'s wall"
-      .panel-body
-        %p= post.text
-      = render "layouts/comments", :post => post, :unique_id => post.id.to_s
-    /
-      = form_for [current_user, post.wall, post, Comment.new], :class => "margin-fix" do |f|
-        .input-group
-          = f.text_field :text, { :class => "form-control", :placeholder => "Post a comment..." }
-          %span.input-group-btn
-            = f.submit "Post Comment", :class => "btn btn-default"
+	.col-md-4
+	.col-md-4
+		.panel.panel-default
+			.panel-heading
+				.row
+					.col-md-2
+						.thumbnail
+							%img{:src => post.user.profile.avatar, :alt => "avatar image", :width => 50, :height => 50 }
+					.col-md-7
+						- if current_user.id == post.user.id
+							%h3.panel-title You said:
+						- else
+							%h3.panel-title= post.user.profile.first_name + " said"
+					.col-md-3
+						- if current_user.wall.id == post.wall.id
+							%h6 on your wall
+						- if post.wall.walled.is_a?(User)
+							%h6= "on " + post.wall.walled.profile.last_name + "'s wall"
+						- else
+							%h6= "on " + post.wall.walled.title
+
+			.panel-body
+				%p= post.text
+				= render "layouts/comments", :post => post, :unique_id => post.id.to_s
+/
+	= form_for [current_user, post.wall, post, Comment.new], :class => "margin-fix" do |f|
+		.input-group
+		= f.text_field :text, { :class => "form-control", :placeholder => "Post a comment..." }
+		%span.input-group-btn
+		= f.submit "Post Comment", :class => "btn btn-default"

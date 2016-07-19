@@ -48,7 +48,7 @@ gem 'carrierwave'
 
 gem 'haml-rails'
 
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -66,7 +66,7 @@ group :development do
   gem 'devise'
 
   # Bootstrap
-  gem 'bootstrap-sass', '~> 3.2.0'
+  gem 'bootstrap-sass', '~> 3.3.6'
   gem 'autoprefixer-rails'
 
   group :development, :test do

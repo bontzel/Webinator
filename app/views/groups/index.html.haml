@@ -17,8 +17,8 @@
             -if @groups.blank?
               .alert.alert-warning You are not subscribed to any groups
             -else 
-              = @groups.each do |group|
-                - link_to group.title, user_group_path(current_user.id, group.id)
+              - @groups.each do |group|
+                = render("layouts/group.html.haml", :group => group)
       .col-md-3
   .col-md-4
     .row

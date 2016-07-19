@@ -5,8 +5,18 @@ class PostsController < ApplicationController
       @post = Post.create(:text => params[:post][:text], :user_id => current_user.id, :wall_id => @wall.id)
 
       if @wall.id != current_user.wall.id
-        Notification.create(:user_id => @wall.user.id, :actor_id => current_user.id, :notifiable_id => @post.id, :notifiable_type => 'Post', :message_type => 1, :seen => false)
+        if @wall.walled.is_a?(User)
+          Notification.create(:user_id => @wall.walled.id, :actor_id => current_user.id, :notifiable_id => @post.id, :notifiable_type => 'Post', :message_type => 1, :seen => false)
+				end
       end
+		
+			if @wall.walled.is_a?(Group)
+					@wall.walled.users.each do |user|
+						if user.id != @post.user.id
+							Notification.create(:user_id => user.id, :actor_id => current_user.id, :notifiable_id => @post.id, :notifiable_type => 'Post', :message_type => 2, :seen => false)
+						end
+					end
+			end
 
       redirect_to :back
   end

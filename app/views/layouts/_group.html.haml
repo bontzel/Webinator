@@ -1,0 +1,12 @@
+.row.feed_title
+  .col-md-2
+  .col-md-6
+    .media
+      .media-left.media-middle
+        .a{:href => "#"}
+          %img.media-object{:src => group.imageSource, :witdh => 64, :height => 64 }
+      .media-body
+        %h2.media-heading
+          = link_to group.title, user_group_path(current_user.id, group.id)
+        %p
+          = group.description

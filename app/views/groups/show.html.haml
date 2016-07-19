@@ -1,0 +1,37 @@
+.row.feed_title
+  .col-md-2
+  .col-md-6
+    .media
+      .media-left.media-middle
+        .a{:href => "#"}
+          %img.media-object{:src => @group.imageSource, :witdh => 64, :height => 64 }
+      .media-body
+        %h2.media-heading
+          = @group.title
+        %p
+          = @group.description
+  .col-md-2
+    .btn.btn-primary{ 'data-toggle' => 'modal', 'data-target' => '#myModal'} Post
+  .col-md-2
+    - if @group.admin_id == current_user.id
+      .btn.btn-default Delete Group
+%br
+
+- unless @posts.blank? 
+  - @posts.each do |post|
+    = render "layouts/post", :post => post
+- else
+  .alert.alert-info No one has posted here yet! Be the first
+
+.modal.fade#myModal
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{'data-dismiss' => 'modal', 'aria-label' => 'Close'}
+        %h4.modal-title Say something nice...
+      .modal-body
+        = form_for [current_user, @group.wall, Post.new] do |f|
+          = f.text_area :text, class: 'form-control'
+          .modal-footer
+            .btn.btn-secondary{'data-dismiss' => 'modal'} Close
+            = f.submit 'Post', :class => 'btn btn-primary' 

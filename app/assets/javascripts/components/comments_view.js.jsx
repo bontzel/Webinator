@@ -3,8 +3,8 @@ var Grid = ReactBootstrap.Grid;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 var Panel = ReactBootstrap.Panel;
-var Input = ReactBootstrap.Input;
-var ButtonInput = ReactBootstrap.ButtonInput;
+var FormControl = ReactBootstrap.FormControl;
+var Button = ReactBootstrap.Button;
 
 
 var CommentLikeButton = React.createClass({
@@ -57,8 +57,8 @@ var Comment = React.createClass({
       dataType: 'json',
       data: this.props.comment,
       success: function (data) {
-        console.log("Success!");
-        console.log(data);
+        console.log("like success:");
+        console.dir(data);
         e.target.innerHTML = "Liked!";
         this.setState({
           liked: true
@@ -97,11 +97,14 @@ var Comment = React.createClass({
   },
 
   render: function() {
-    console.log("liked -> " + this.state.liked);
+		
+		console.log("user: ");
+		console.dir(this.props.comment.user.profile);
+		
     const CommentHeading = (
           <Row>
             <Col md={1}>
-              <img src={this.props.comment.user.profile.avatar.avatar.url}  width="25" height="25"></img>
+              <img src={this.props.comment.user.profile.avatar.url}  width="25" height="25"></img>
             </Col>
             <Col md={10}>
               {this.props.comment.user.profile.first_name} said:
@@ -133,6 +136,7 @@ var Comment = React.createClass({
 var CommentList = React.createClass({
 
   render: function () {
+		
     var commentNodes = this.props.comments.map(function (comment, index) {
       return (
         <Comment comment = {comment} key={index} />
@@ -190,22 +194,21 @@ var CommentForm = React.createClass({
     var value = this.state.comment.text
     return (
       <div>
-        <form method="post" remote="true" onSubmit={this.handleSubmit}>
-          <Row>
-            <Col md={1}></Col>
-            <Col md={10}>
-              <Input type="textarea" value = {value} onChange={this.handleChange}></Input>
-            </Col>
-            <Col md={1}></Col>
-          </Row>
-          <Row>
-            <Col md={4}></Col>
-            <Col md={4}>
-              <ButtonInput type="submit" value="Post Comment!"></ButtonInput>
-            </Col>
-            <Col md={4}></Col>
-          </Row>
-        </form>
+				<Row>
+					<Col md={1}></Col>
+					<Col md={10}>
+						<FormControl componentClass="textarea" value = {value} onChange={this.handleChange}></FormControl>
+					</Col>
+					<Col md={1}></Col>
+				</Row>
+				<br></br>
+				<Row>
+					<Col md={4}></Col>
+					<Col md={4}>
+						<Button bsStyle="primary" onClick = {this.handleSubmit}> Post Comment! </Button>
+					</Col>
+					<Col md={4}></Col>
+				</Row>
       </div>
     );
   }
@@ -231,10 +234,10 @@ var CommentsView = React.createClass({
   },
 
   addComment: function(comment) {
-    var newComments = this.state.comments
-    newComments.push(comment);
+		
+    this.state.comments.push(comment);
     this.setState(
-      {comments:newComments}
+      {comments:this.state.comments}
     );
   },
 
@@ -247,6 +250,8 @@ var CommentsView = React.createClass({
       url: this.state.url,
       dataType: 'json',
       success: function (data) {
+				console.log("Received comments:");
+				console.dir(data);
         this.setState({comments: data.comments});
       }.bind(this),
       error: function (xhr, status, err) {

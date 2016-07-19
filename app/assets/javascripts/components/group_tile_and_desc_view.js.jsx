@@ -16,6 +16,13 @@ var GroupTitleAndDescView = React.createClass({
     };
   },
   
+  componentDidMount() {
+    this.setState({
+      title: this.props.title,
+      description: this.props.description,
+    });
+  },
+  
   handleTitle: function(e) {
     this.setState({ title: e.target.value });
     this.props.onTitleEdit(e.target.value);

@@ -1,5 +1,5 @@
 class CommentSerializer < ActiveModel::Serializer
   attributes :text, :id
 
-  has_one :user, serializer: UserSerializer
+  belongs_to :user, serializer: UserSerializer
 end

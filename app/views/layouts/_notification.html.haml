@@ -1,11 +1,16 @@
 %li.list-group-item
 	- if notification.notifiable_type == 'Post'
-		- if notification.message_type == 0
+		- case notification.message_type
+		- when 0 then
 			= link_to notification.actor.profile.first_name + " has liked your post!", user_wall_post_path(notification.notifiable.wall.walled.id, notification.notifiable.wall.id, notification.notifiable.id)
-		- else
+		- when 1 then
 			= link_to notification.actor.profile.first_name + " has posted on your wall!", user_wall_post_path(notification.notifiable.wall.walled.id, notification.notifiable.wall.id, notification.notifiable.id)
+		- when 2 then
+			= link_to notification.actor.profile.first_name + " has posted on " + notification.notifiable.wall.group.title, user_wall_post_path(notification.notifiable.wall.walled.id, notification.notifiable.wall.id, notification.notifiable.id)
 	- else
-		- if notification.message_type == 1  
+		- case notification.message_type
+		- when 1 then
 			= link_to notification.actor.profile.first_name + " has liked your comment!", user_wall_post_path(notification.notifiable.post.wall.walled.id, notification.notifiable.post.wall.id, notification.notifiable.post.id)
-		- else
+		- when 0 then
 			= link_to notification.actor.profile.first_name + " has commented on your post!", user_wall_post_path(notification.notifiable.post.wall.walled.id, notification.notifiable.post.wall.id, notification.notifiable.post.id)
+			

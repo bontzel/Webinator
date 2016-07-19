@@ -16,10 +16,9 @@ class CommentsController < ApplicationController
     if @comment.user.id != post.user.id
       Notification.create(:user_id => post.user.id, :actor_id => current_user.id, :notifiable_id => @comment.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
     end
-    # respond_with @comment
-    respond_to do |format|
-      format.json  { render :json => @comment } # don't do msg.to_json
-    end
+    
+     render :json => @comment
+ 
   end
 
   def index

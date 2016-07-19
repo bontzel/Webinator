@@ -21,3 +21,24 @@
   transition: opacity 300ms ease-in;
 }
 
+.selected-icon {
+  outline: 1px solid lightgrey;
+}
+
+#loading {
+  animation-duration: 2s; 
+  animation-name: pulse;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes pulse {
+  from {
+    font-size: 30px;
+  }
+  
+  to {
+    font-size: 40px;
+  }
+}
+

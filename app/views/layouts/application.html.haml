@@ -6,7 +6,7 @@
     = csrf_meta_tags
 
 %body
-  %nav.navbar.navbar-defaul.cool-bg
+  %nav.navbar.navbar-full.cool-bg
     .container-fluid
       / Brand and toggle get grouped for better mobile display
       .navbar-header
@@ -75,6 +75,7 @@
                 - else
                   - pending_friend_requests.each do |request|
                     = render "layouts/friend_request", :request => request
+							
 
             %li.btn.btn-lg.dropdown
               .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
