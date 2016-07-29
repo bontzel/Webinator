@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :feed_histories, only: [:show]
   end
   
-  resources :groups, only: [:show]
+  resources :groups, only: [:show, :destroy]
   resources :tags, only: [:index]
 
   patch 'friendships/read_requests' => 'friendships#read_requests'

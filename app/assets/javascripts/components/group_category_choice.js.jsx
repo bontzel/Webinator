@@ -59,11 +59,7 @@ var GroupCategoryChoice = React.createClass({
         </div>
       );
     });
-    
-
-    
-    
-
+   
     return(
       <div>
         <Fade in = {this.state.open} transitionAppear = {true} timeout = {1000}>  
@@ -90,5 +86,5 @@ var GroupCategoryChoice = React.createClass({
         </Fade>
       </div>
     );
-  }
+  },
 });

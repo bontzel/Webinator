@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160714143450) do
+ActiveRecord::Schema.define(version: 20160726085902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,11 +65,12 @@ ActiveRecord::Schema.define(version: 20160714143450) do
 
   create_table "groups", force: :cascade do |t|
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "admin_id"
     t.string   "title"
     t.string   "imageSource"
+    t.string   "short_description"
   end
 
   create_table "groups_have_tags", force: :cascade do |t|
@@ -145,6 +146,16 @@ ActiveRecord::Schema.define(version: 20160714143450) do
 
   add_index "user_friends_preferences", ["user_id"], name: "index_user_friends_preferences_on_user_id", using: :btree
 
+  create_table "user_interests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_interests", ["tag_id"], name: "index_user_interests_on_tag_id", using: :btree
+  add_index "user_interests", ["user_id"], name: "index_user_interests_on_user_id", using: :btree
+
   create_table "user_likes_posts", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "likeable_id"
@@ -214,6 +225,8 @@ ActiveRecord::Schema.define(version: 20160714143450) do
   add_foreign_key "subscriptions", "groups"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_friends_preferences", "users"
+  add_foreign_key "user_interests", "tags"
+  add_foreign_key "user_interests", "users"
   add_foreign_key "user_likes_posts", "users"
   add_foreign_key "user_popularities", "users"
 end

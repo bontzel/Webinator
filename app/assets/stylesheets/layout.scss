@@ -93,9 +93,19 @@ background: #275b89; /* Old browsers */
   border: none;
   position: absolute;
   bottom: 0;
-
+	
 }
 
+.logo {
+	color: white;
+	font-size: 25px;
+	font-family: 'Days One', sans-serif;
+	user-select: none;
+	border: 3px solid white;
+	padding: 5px;
+	margin-top: -9px;
+	border-radius: 8px;
+}
 
 .custom-eq {
   font-size: 25px;

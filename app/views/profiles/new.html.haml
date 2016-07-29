@@ -1,0 +1,14 @@
+.container-fluid
+	.row.feed_title
+		.col-md-3
+		.col-md-6
+			%h2 Profile Information
+		.col-md-3
+%br
+	.row
+		.col-md-3
+		.col-md-6
+			.panel.panel-default
+				.panel-body
+					= react_component('ProfileCreateView', {user_id: params[:user_id]})
+		.col-md-3

@@ -24,6 +24,9 @@ class User < ActiveRecord::Base
 	has_many :subscriptions
 	has_many :groups, :through => :subscriptions
 	
+	has_many :user_interests
+	has_many :tags, :through => :user_interests
+	
 
   accepts_nested_attributes_for :feed_history,
     :reject_if => :all_blank,

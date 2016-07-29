@@ -3,6 +3,7 @@
     %title Webinator
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    %link{:rel => :stylesheet, :type => :"text/css", :href => 'https://fonts.googleapis.com/css?family=Days+One'}
     = csrf_meta_tags
 
 %body
@@ -16,7 +17,7 @@
           %span.icon-bar
           %span.icon-bar
         %a.navbar-brand.little-padding-bottom
-          %img{:alt => "brand", :src => "/images/logo-mini.png"}
+          %p.logo W
 
       / Collect the nav links, forms, and other content for toggling
       .collapse.navbar-collapse#bs-example-navbar-collapse-1

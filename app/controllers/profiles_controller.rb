@@ -14,6 +14,8 @@ class ProfilesController < ApplicationController
 
   def new
 
+		@tags = Tag.all
+		
     if current_user.id == params[:user_id]
       @profile = Profile.new
       flash[:notice] = "K"
@@ -62,20 +64,38 @@ def update
 end
 
   def create
+		
+		@res = {
+			:msg => 'Unknown Error'
+			}
+		
     @profile = Profile.new
-    @profile.first_name = params[:profile][:first_name]
-    @profile.last_name = params[:profile][:last_name]
+    @profile.first_name = params[:first_name]
+    @profile.last_name = params[:last_name]
     @profile.user_id = current_user.id
+		
+		@cats = params[:categories]
+		@user = User.find(current_user.id)
+		
+		@cats.each do |cat| 
+      @user.tags << Tag.find(cat[:id])
+    end
+		
+		
 
     if @profile.save
-      Wall.create(:user_id => current_user.id)
+      @user.wall = Wall.create()
       @feed = Feed.create(:user_id => current_user.id)
       FeedHistory.create(:feed_id => @feed.id)
-    end
+			
+			@res = {
+				:redirect_url => user_profiles_path(current_user.id).to_s
+				}
+		end
 
     # Profile.create(:first_name => params[:profile][:first_name], :last_name => params[:profile][:last_name],
     #                :user_id => current_user.id, :avatar => "/images/default-avatar.png")
-
-    redirect_to user_profiles_path(current_user.id)
+		
+		render :json => { :redirect_url => user_profiles_path(current_user.id).to_s	}
   end
 end

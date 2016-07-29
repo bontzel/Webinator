@@ -14,7 +14,7 @@
     .btn.btn-primary{ 'data-toggle' => 'modal', 'data-target' => '#myModal'} Post
   .col-md-2
     - if @group.admin_id == current_user.id
-      .btn.btn-default Delete Group
+      = link_to "Delete Group", user_group_path(current_user.id, @group.id), :method => :delete, :remote => true, :class => "btn btn-default"
 %br
 
 - unless @posts.blank? 
