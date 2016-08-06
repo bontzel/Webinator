@@ -1,35 +1,35 @@
-.row.feed_title
-  .col-md-4
-  .col-md-4.profile_title
-    %h2 Your Groups
-  .col-md-3
-  .col-md-1
-    =button_to "Create group", new_user_group_path(current_user.id), :class => "btn btn-default", :method => :get
-%br
-.row
-  .col-md-8
-    .row
-      .col-md-3
-      .col-md-6.profile_title
-        .row
-          .col-md-12
-            %h2.group_subtitle Subscribed groups
+.container-fluid
+  .row.feed_title
+    .col-md-4
+    .col-md-4.profile_title
+      %h2 Your Groups
+    .col-md-2
+    .col-md-2
+      =button_to "Create group", new_user_group_path(current_user.id), :class => "btn btn-default", :method => :get
+  %br
+  .row
+    .col-md-7
+      .row
+        .col-md-2
+        .col-md-7.profile_title
+          .row
+            .col-md-12
+              %h2.group_subtitle Subscribed groups
 
-            -if @groups.blank?
-              .alert.alert-warning You are not subscribed to any groups
-            -else 
-              - @groups.each do |group|
-                = render("layouts/group.html.haml", :group => group)
-      .col-md-3
-  .col-md-4
-    .row
-      .col-md-12.profile_title
-        %h2.group_subtitle Recommended
-        .row
-          .col-md-12
-            -if @recGroups.blank?
-              .alert.alert-warning We do not have any recommended groups for you yet
-            - else
-              - @recGroups.each do |group|
-                = render("layouts/group.html.haml", :group => group)
-								
+              -if @groups.blank?
+                .alert.alert-warning You are not subscribed to any groups
+              -else
+                - @groups.each do |group|
+                  = render("layouts/group.html.haml", :group => group)
+        .col-md-3
+    .col-md-4
+      .row
+        .col-md-12.profile_title
+          %h2.group_subtitle Recommended
+          .row
+            .col-md-12
+              -if @recGroups.blank?
+                .alert.alert-warning We do not have any recommended groups for you yet
+              - else
+                - @recGroups.each do |group|
+                  = render("layouts/group.html.haml", :group => group)

@@ -1,18 +1,19 @@
-.row.feed_title
-  .col-md-4
-  .col-md-4.title_column
-    .h2 Your Feed
-  .col-md-4
-    .dropdown.pull-right#dropdownFeedSort
-      %button.btn.btn-default.dropdown-toggle#sortDropdownMenu{:type => "button", 'data-toggle' => :dropdown, 'aria-haspopup' => 'true'}
-        = @selected
-        %span.caret
-      %ul.dropdown-menu{'aria-labelledby' => :sortDropdownMenu}
-        %li
-          = link_to 'By Date', url_for(:action => :sort_by_date), :method => :get
-        %li
-          = link_to 'Recommended', url_for(:action => :sort_by_recommended), :method => :get
+.container-fluid
+  .row.feed_title
+    .col-md-4
+    .col-md-4.title_column
+      .h2 Your Feed
+    .col-md-4
+      .dropdown.pull-right#dropdownFeedSort
+        %button.btn.btn-default.dropdown-toggle#sortDropdownMenu{:type => "button", 'data-toggle' => :dropdown, 'aria-haspopup' => 'true'}
+          = @selected
+          %span.caret
+        %ul.dropdown-menu{'aria-labelledby' => :sortDropdownMenu}
+          %li
+            = link_to 'By Date', url_for(:action => :sort_by_date), :method => :get
+          %li
+            = link_to 'Recommended', url_for(:action => :sort_by_recommended), :method => :get
 
-%br
-- @posts.each do |post|
-  = render "layouts/post", :post => post
+  %br
+  - @posts.each do |post|
+    = render "layouts/post", :post => post

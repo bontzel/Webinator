@@ -4,7 +4,6 @@ var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 var Panel = ReactBootstrap.Panel;
 var FormControl = ReactBootstrap.FormControl;
-var Button = ReactBootstrap.Button;
 
 
 var CommentLikeButton = React.createClass({
@@ -50,19 +49,23 @@ var Comment = React.createClass({
   },
 
   handleLikeClick: function(e) {
-      console.log(this.props.comment.id);
+      console.dir(this.props.comment);
+
+      var likeButton = e.target;
+
     $.ajax({
       type: 'POST',
       url: "/comments/like",
       dataType: 'json',
       data: this.props.comment,
       success: function (data) {
-        console.log("like success:");
-        console.dir(data);
-        e.target.innerHTML = "Liked!";
-        this.setState({
-          liked: true
-        });
+        console.log("like result -> ")
+        console.dir(data.success);
+        if (data.success) {
+          this.setState({
+            liked: true
+          });
+        }
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -97,10 +100,10 @@ var Comment = React.createClass({
   },
 
   render: function() {
-		
+
 		console.log("user: ");
 		console.dir(this.props.comment.user.profile);
-		
+
     const CommentHeading = (
           <Row>
             <Col md={1}>
@@ -136,7 +139,7 @@ var Comment = React.createClass({
 var CommentList = React.createClass({
 
   render: function () {
-		
+
     var commentNodes = this.props.comments.map(function (comment, index) {
       return (
         <Comment comment = {comment} key={index} />
@@ -169,12 +172,21 @@ var CommentForm = React.createClass({
   },
 
   handleSubmit: function(e) {
+    var dataJSON = {
+      "text" : this.state.comment.text,
+    };
+
+    var params = JSON.stringify(dataJSON);
+
     $.ajax({
       type: 'POST',
       url: this.props.url,
       dataType: 'json',
-      data: this.state.comment,
+      contentType: 'application/json',
+      data: params,
       success: function (data) {
+        console.log("comment post response ->");
+        console.dir(data);
         this.props.onPostSuccess(data.comment);
         var comment = this.state.comment;
         comment.text = "";
@@ -234,7 +246,7 @@ var CommentsView = React.createClass({
   },
 
   addComment: function(comment) {
-		
+
     this.state.comments.push(comment);
     this.setState(
       {comments:this.state.comments}

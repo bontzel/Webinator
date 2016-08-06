@@ -9,54 +9,54 @@ var Table = ReactBootstrap.Table;
 
 
 var GroupPictureAndReview = React.createClass({
-  
+
   getInitialState: function() {
     return {
       preview: false,
-      previewSource: "", 
+      previewSource: "",
     };
   },
-  
+
   onImageClick: function(imageSource) {
-    
+
     this.props.setImage(imageSource);
-    
+
     this.setState({
       preview: true,
       previewSource: imageSource,
     });
   },
-  
-  
-  
+
+
+
   render: function() {
-    
+
     var twoRows = false;
     var tagsNodes1;
     var tagsNodes2;
-    
+
     if (this.props.categories.length > 6) {
       twoRows = true;
-      
+
       tagsNodes2 = this.props.categories.slice(6, 11).map(function(item, index) {
-                                                         
+
         return(
           <td key = {index}> <h4> <Label> {item.name} </Label> </h4> </td>
         );
 
       });
     }
-    
+
     tagsNodes1 = this.props.categories.slice(0, 5).map(function(item, index) {
-                                                         
+
       return(
         <td key = {index}> <h4> <Label> {item.name} </Label> </h4> </td>
       );
 
     });
-    
+
     return(
-      <Grid>
+      <Grid fluid={true}>
         <Row>
           <Col md={3}></Col>
           <Col md={2}>

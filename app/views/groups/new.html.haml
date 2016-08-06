@@ -1,12 +1,13 @@
-.row.feed_title
-  .col-md-4
-  .col-md-4.profile_title
-    %h2 Create group
-  .col-md-4
-%br
+.container-fluid
+  .row.feed_title
+    .col-md-4
+    .col-md-4.profile_title
+      %h2 Create group
+    .col-md-4
+  %br
 
-.row
-  .col-md-2
-  .col-md-8
-    = react_component('GroupCreationView', {user_id: params[:user_id]})
-  .col-md-2
+  .row
+    .col-md-2
+    .col-md-8
+      = react_component('GroupCreationView', {user_id: params[:user_id]})
+    .col-md-2

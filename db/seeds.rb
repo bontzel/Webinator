@@ -9,10 +9,16 @@
 User.new({ :email => "user1@users.com", :password => "pass1234", :password_confirmation => "pass1234"}).save(:validate => false)
 user1 = User.find(1)
 
+
 profile1 = Profile.create(:user_id => user1.id, :first_name => "John", :last_name => "Doe")
 user1.wall = Wall.create()
 feed1 = Feed.create(:user_id => user1.id)
 feedHistory1 = FeedHistory.create(:feed_id => feed1.id)
+
+user1.skip_confirmation!
+
+user1.save!
+
 
 User.new({ :email => "user2@users.com", :password => "pass1234", :password_confirmation => "pass1234"}).save(:validate => false)
 user2 = User.find(2)
@@ -47,17 +53,19 @@ user5.wall = Wall.create()
 feed5 = Feed.create(:user_id => user5.id)
 feedHistory5 = FeedHistory.create(:feed_id => feed5.id)
 
-user1.skip_confirmation!
+
 user2.skip_confirmation!
 user3.skip_confirmation!
 user4.skip_confirmation!
 user5.skip_confirmation!
 
-user1.save!
+
 user2.save!
 user3.save!
 user4.save!
 user5.save!
+
+
 
 user1ToUser2Friendship = user1.friendships.build(:friend_id => user2.id, :pending => false, :accepted => true, :read => true)
 user2ToUser3Friendship = user2.friendships.build(:friend_id => user3.id, :pending => true, :accepted => false, :read => false)
@@ -136,3 +144,14 @@ Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id 
 Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id => comment1.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
 Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id => comment2.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
 Notification.create(:user_id => user2.id, :actor_id => user1.id, :notifiable_id => comment3.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
+
+Tag.create(:name => "Economy")
+Tag.create(:name => "Biology")
+Tag.create(:name => "Bussiness")
+Tag.create(:name => "Programming")
+Tag.create(:name => "IT")
+Tag.create(:name => "Celebrities")
+Tag.create(:name => "Music")
+Tag.create(:name => "Sports")
+Tag.create(:name => "Politics")
+Tag.create(:name => "Lifestyle")

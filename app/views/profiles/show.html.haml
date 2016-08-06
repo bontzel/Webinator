@@ -1,65 +1,66 @@
-.row.feed_title
-  .col-md-4
-  .col-md-4.profile_title
-    - if current_user.id == params[:user_id].to_i
-      %h2 Your Profile
-    - elsif
-      %h2= @profile.last_name + "'s Profile"
-  .col-md-4
-%br
-.row
-  .col-md-4
-  .col-md-4
-    .row
-      .col-md-4
-        .thumbnail
-          %img{:src => @profile.avatar}
-      .col-md-8
-        %ul.list-group
-          %li.list-group-item
-            %label First name:
-            = @profile.first_name
-          %li.list-group-item
-            %label Last name:
-            = @profile.last_name
-          %li.list-group-item
-            %label Birthday:
-            = @profile.birthday
-          %br
-          %br
-          .row
-            .col-md-4
-            .col-md-4
-              - if current_user.id == params[:user_id].to_i
-                .btn.btn-default{"data-toggle" => "collapse", "data-target" => "#collapsable"} Edit Your Profile
-              - elsif @friendship.blank?
-                = link_to "Add Friend",  user_friendships_path(:user_id => current_user.id, :friend_id => params[:user_id]), :method => :post, :class => "btn btn-primary"
-              - elsif @friendship.accepted?
-                = link_to "Unfriend", user_friendship_path(current_user.id, @friendship.id), :method => :delete, :class => "btn btn-default"
-              - else
-                = link_to "Accept Friend", { controller: 'friendships', action: 'accept_friendship', id: @friendship.id }, :method => :patch, :class => "btn btn-primary"
-            .col-md-4
-    .row.collapse{:id => "collapsable"}
-      .col-md-12
-        .panel
-          .panel-body
-            = form_for [current_user, @profile], method: :patch do |f|
-              = f.label :first_name
-              %br
-              = f.text_field :first_name, class: "form-control"
-              %br
-              = f.label :last_name
-              %br
-              = f.text_field :last_name, class: "form-control"
-              %br
-              %label Upload Image:
-              %br
-              = f.file_field :avatar
-              %br
-              = f.label :birthday
-              %br
-              = f.date_field :birthday
-              %br
-              = f.submit "Update", class: "btn btn-primary"
+.container-fluid
+  .row.feed_title
+    .col-md-4
+    .col-md-4.profile_title
+      - if current_user.id == params[:user_id].to_i
+        %h2 Your Profile
+      - elsif
+        %h2= @profile.last_name + "'s Profile"
+    .col-md-4
+  %br
+  .row
+    .col-md-4
+    .col-md-4
+      .row
+        .col-md-4
+          .thumbnail
+            %img{:src => @profile.avatar}
+        .col-md-8
+          %ul.list-group
+            %li.list-group-item
+              %label First name:
+              = @profile.first_name
+            %li.list-group-item
+              %label Last name:
+              = @profile.last_name
+            %li.list-group-item
+              %label Birthday:
+              = @profile.birthday
+            %br
+            %br
+            .row
+              .col-md-4
+              .col-md-4
+                - if current_user.id == params[:user_id].to_i
+                  .btn.btn-default{"data-toggle" => "collapse", "data-target" => "#collapsable"} Edit Your Profile
+                - elsif @friendship.blank?
+                  = link_to "Add Friend",  user_friendships_path(:user_id => current_user.id, :friend_id => params[:user_id]), :method => :post, :class => "btn btn-primary"
+                - elsif @friendship.accepted?
+                  = link_to "Unfriend", user_friendship_path(current_user.id, @friendship.id), :method => :delete, :class => "btn btn-default"
+                - else
+                  = link_to "Accept Friend", { controller: 'friendships', action: 'accept_friendship', id: @friendship.id }, :method => :patch, :class => "btn btn-primary"
+              .col-md-4
+      .row.collapse{:id => "collapsable"}
+        .col-md-12
+          .panel
+            .panel-body
+              = form_for [current_user, @profile], method: :patch do |f|
+                = f.label :first_name
+                %br
+                = f.text_field :first_name, class: "form-control"
+                %br
+                = f.label :last_name
+                %br
+                = f.text_field :last_name, class: "form-control"
+                %br
+                %label Upload Image:
+                %br
+                = f.file_field :avatar
+                %br
+                = f.label :birthday
+                %br
+                = f.date_field :birthday
+                %br
+                = f.submit "Update", class: "btn btn-primary"
 
-  .col-md-4
+    .col-md-4

@@ -16,7 +16,7 @@
   .col-md-9
 .collapse{:id => "uniqueId" + unique_id}
   = react_component('CommentsView',{count: post.comments.count,
-                                    user_id: post.user.id,
+                                    user_id: current_user.id,
                                     wall_id: post.wall.id,
                                     post_id: post.id})
   /
