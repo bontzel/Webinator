@@ -81,11 +81,28 @@ user1ToUser3Friendship.save
 user1ToUser4Friendship.save
 user1ToUser5Friendship.save
 
-post1 = Post.create(:text => "How was your holiday?",:user_id => user1.id, :wall_id => user2.wall.id)
-comment1 = Comment.create(:text => "Good, I had fun!", :user_id => user2.id,  :post_id => post1.id)
-post2 = Post.create(:text => "Life is good!", :user_id => user1.id, :wall_id => user1.wall.id)
+post1 = Post.new
+post1.text = "How was your holiday?"
+post1.user = user1
+post1.wall = user2.wall
+post1.save
+
+
+post2 = Post.new
+post2.text = "Good, I had fun!"
+post2.user = user2
+post2.wall = user1.wall
+post2.save
+
+post3 = Post.new
+post3.text = "Hello France! :D"
+post3.user = user2
+post3.wall = user2.wall
+post3.save
+
+
+comment1 = Comment.create(:text => "Random Comment", :user_id => user2.id,  :post_id => post1.id)
 comment2 = Comment.create(:text => "Yes indeed :D", :user_id => user2.id, :post_id => post2.id)
-post3 = Post.create(:text => "Hello France! :D", :user_id => user2.id, :wall_id => user2.wall.id)
 comment3 = Comment.create(:text => "I envy you >.<", :user_id => user1.id, :post_id => post3.id)
 
 count = 1
@@ -94,7 +111,13 @@ count = 1
 ufp1 = UserFriendsPreference.create(:user_id => user1.id, :entries => [])
 
 3.times do
-  postx = Post.create(:text => "Text no. #{count}.", :user_id => user2.id, :wall_id => user2.wall.id)
+	postx = Post.new
+	postx.text = "Text no. #{count}."
+	postx.user = user2
+	postx.wall = user2.wall
+	postx.save
+	
+  
   user1.post_likes << postx
   user3.post_likes << postx
   user4.post_likes << postx
@@ -104,14 +127,28 @@ end
 ufp1.entries.push("2:3")
 
 5.times do
-  user1.post_likes << Post.create(:text => "Text no. #{count}.", :user_id => user3.id, :wall_id => user3.wall.id)
+	
+	postx = Post.new
+	postx.text = "Text no. #{count}."
+	postx.user = user2
+	postx.wall = user2.wall
+	postx.save
+	
+  user1.post_likes << postx
   count = count + 1
 end
 
 ufp1.entries.push("3:5")
 
 10.times do
-  user1.post_likes << Post.create(:text => "Text no. #{count}.", :user_id => user4.id, :wall_id => user4.wall.id)
+	
+	postx = Post.new
+	postx.text = "Text no. #{count}."
+	postx.user = user4
+	postx.wall = user4.wall
+	postx.save
+	
+  user1.post_likes << postx
   count = count + 1
 end
 
@@ -141,7 +178,16 @@ user1.save
 user2.save
 
 Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id => post1.id, :notifiable_type => 'Post', :message_type => 0, :seen => false)
-Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id => comment1.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
+
+n1 = Notification.new
+n1.user = user1
+n1.actor = user2
+n1.notifiable = comment1
+n1.notifiable_type = 'Comment'
+n1.message_type = 0
+n1.seen = false
+n1.save
+
 Notification.create(:user_id => user1.id, :actor_id => user2.id, :notifiable_id => comment2.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
 Notification.create(:user_id => user2.id, :actor_id => user1.id, :notifiable_id => comment3.id, :notifiable_type => 'Comment', :message_type => 0, :seen => false)
 

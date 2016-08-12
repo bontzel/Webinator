@@ -3,9 +3,6 @@
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 $( document ).ready(function() {
   var data = JSON.stringify($('#notifications-widget').data('notifications'))
-  console.log(data);
-  console.log(typeof data);
-  console.log($('#notifications-widget').data('notifications')[0]);
   var arr = new Array();
   $('#notifications-widget').data('notifications').forEach(function (item){
     arr.push(item);
@@ -14,10 +11,8 @@ $( document ).ready(function() {
   json.notifications = arr;
   var data = JSON.stringify(json)
 
-  console.log(arr[0] + "----------------------------------------------");
   if(arr.length > 0) {
     $('#notifications-widget').click(function() {
-      console.log(data + "----------------------------------------------");
       $.ajax({
         // alert('request sent');
         type: "PATCH",

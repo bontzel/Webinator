@@ -15,7 +15,7 @@
 					.col-md-3
 						- if current_user.wall.id == post.wall.id
 							%h6 on your wall
-						- if post.wall.walled.is_a?(User)
+						- elsif post.wall.walled.is_a?(User)
 							%h6= "on " + post.wall.walled.profile.last_name + "'s wall"
 						- else
 							%h6= "on " + post.wall.walled.title
