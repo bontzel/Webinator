@@ -241,7 +241,8 @@ var CommentsView = React.createClass({
       url: "/users/" + this.props.user_id +
            "/walls/" + this.props.wall_id +
            "/posts/" + this.props.post_id +
-           "/comments"
+           "/comments",
+      intervalID: null,
     };
   },
 
@@ -255,15 +256,25 @@ var CommentsView = React.createClass({
 
   componentDidMount: function() {
     this.loadCommentsFromServer();
+    this.setState({
+      intervalID: setInterval(this.loadCommentsFromServer, 10000),
+    });
+  },
+
+  componentWillUnmount: function() {
+    clearInterval(this.state.intervalID);
   },
 
   loadCommentsFromServer: function () {
+    var thisObj = this;
+
     $.ajax({
       url: this.state.url,
       dataType: 'json',
       success: function (data) {
 				console.log("Received comments:");
 				console.dir(data);
+
         this.setState({comments: data.comments});
       }.bind(this),
       error: function (xhr, status, err) {

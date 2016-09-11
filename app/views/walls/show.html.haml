@@ -1,0 +1,33 @@
+.container-fluid
+  .row
+    .col-md-3
+      - if current_user.id == @wall.walled.id
+        %h2 Your wall!
+      - else
+        %h2
+          = link_to @wall.walled.profile.first_name + " " + @wall.walled.profile.last_name, user_profile_path(@wall.walled.id, @wall.walled.profile.id)
+    - if @isFriend
+      .btn.btn-primary.pull-right.margin-right{ 'data-toggle' => 'modal', 'data-target' => '#myModal'} Post on this wall
+  .panel.panel-default
+    .panel-body
+      .row
+        .col-md-12
+          - if @isFriend
+            - if @posts
+              - @posts.each do |post|
+                = render "layouts/post", :post => post
+            - else
+              .alert.alert-info There are no posts on this wall!
+
+.modal.fade#myModal
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{'data-dismiss' => 'modal', 'aria-label' => 'Close'}
+        %h4.modal-title Say something nice...
+      .modal-body
+        = form_for [current_user, @wall, Post.new] do |f|
+          = f.text_area :text, class: 'form-control'
+          .modal-footer
+            .btn.btn-secondary{'data-dismiss' => 'modal'} Close
+            = f.submit 'Post', :class => 'btn btn-primary'

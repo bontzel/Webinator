@@ -11,27 +11,36 @@
         %p
           = @group.description
   .col-md-2
-    .btn.btn-primary{ 'data-toggle' => 'modal', 'data-target' => '#myModal'} Post
+    - if @hasSubscribed
+      .btn.btn-primary{ 'data-toggle' => 'modal', 'data-target' => '#myModal'} Post
+    - else
+      = link_to "Subscribe", user_group_subscriptions_path(current_user.id, @group.id), :method => :post, :remote => true, :class => "btn btn-primary"
   .col-md-2
     - if @group.admin_id == current_user.id
       = link_to "Delete Group", user_group_path(current_user.id, @group.id), :method => :delete, :remote => true, :class => "btn btn-default"
+    - else
+      - if @hasSubscribed
+        = link_to "Unsubscribe", destroy_subscription_path(current_user.id, @group.id), :method => :delete, :remote => true, :class => "btn btn-default"
 %br
 
-- unless @posts.blank? 
-  - @posts.each do |post|
-    = render "layouts/post", :post => post
-- else
-  .alert.alert-info No one has posted here yet! Be the first
+- if @hasSubscribed
+  - unless @posts.blank?
+    - @posts.each do |post|
+      = render "layouts/post", :post => post
+  - else
+    .alert.alert-info No one has posted here yet! Be the first
 
-.modal.fade#myModal
-  .modal-dialog{:role => "document"}
-    .modal-content
-      .modal-header
-        %button.close{'data-dismiss' => 'modal', 'aria-label' => 'Close'}
-        %h4.modal-title Say something nice...
-      .modal-body
-        = form_for [current_user, @group.wall, Post.new] do |f|
-          = f.text_area :text, class: 'form-control'
-          .modal-footer
-            .btn.btn-secondary{'data-dismiss' => 'modal'} Close
-            = f.submit 'Post', :class => 'btn btn-primary' 
+  .modal.fade#myModal
+    .modal-dialog{:role => "document"}
+      .modal-content
+        .modal-header
+          %button.close{'data-dismiss' => 'modal', 'aria-label' => 'Close'}
+          %h4.modal-title Say something nice...
+        .modal-body
+          = form_for [current_user, @group.wall, Post.new] do |f|
+            = f.text_area :text, class: 'form-control'
+            .modal-footer
+              .btn.btn-secondary{'data-dismiss' => 'modal'} Close
+              = f.submit 'Post', :class => 'btn btn-primary'
+- else
+  .alert.alert-warning You have to subscribe to see this discussion.

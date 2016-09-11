@@ -12,6 +12,17 @@ class WallsController < ApplicationController
       @popularUsers.push(upentry.user)
     end
 
+    @isFriend = true
+
+    if @wall.walled_type == 'User'
+      if params[:user_id].to_i != current_user.id
+        @isFriend1 = Friendship.exists?(:friend_id => current_user.id, :user_id => params[:user_id], :accepted => true)
+        @isFriend2 = Friendship.exists?(:friend_id => params[:user_id], :user_id => current_user.id, :accepted => true)
+
+        @isFriend = @isFriend1 || @isFriend2
+      end
+    end
+
 
 
     @popularUsers.each do |user|

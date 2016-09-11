@@ -9,28 +9,22 @@
         </h2>
       <% end %>
     </div>
-    <button id="postButton" type="button" class="btn btn-primary pull-right margin-right">Post on this wall</button>
+    <%- if @isFriend %>
+      <button id="postButton" type="button" class="btn btn-primary pull-right margin-right">Post on this wall</button>
+    <% end %>
   </div>
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="row">
-        <div class="col-md-9">
-          <%- if @posts %>
-            <% @posts.each do |post| %>
-              <%= render "layouts/post", :post => post %>
-            <% end %>
-          <% else %>
-            <div class="alert alert-info" role="alert"> There are no posts on your wall! </div>
-          <% end -%>
-        </div>
-        <div class="col-md-3">
-          <h5> Recommended Users </h5>
-          <%- if !@relevantPopularUsers.empty? %>
-            <% @relevantPopularUsers.each do |user| %>
-              <%= render "layouts/userPartial", :user => user %>
-            <%end%>
-          <% else %>
-            <div class="alert alert-info" role="alert"> We have no recommended users for you! Yet! </div>
+        <div class="col-md-12">
+          <% if @isFriend %>
+            <%- if @posts %>
+              <% @posts.each do |post| %>
+                <%= render "layouts/post", :post => post %>
+              <% end %>
+            <% else %>
+              <div class="alert alert-info" role="alert"> There are no posts on this wall! </div>
+            <% end -%>
           <% end %>
         </div>
       </div>

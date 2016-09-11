@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   root 'profiles#index'
 
   resources :users do
-		resources :groups
+		resources :groups do
+      resources :subscriptions, only: [:create]
+    end
     resources :profiles
     resources :walls, only: [:show] do
       resources :posts, only: [:create, :show] do
@@ -20,7 +22,7 @@ Rails.application.routes.draw do
     resources :friendships, only: [:create, :destroy]
     resources :feed_histories, only: [:show]
   end
-  
+
   resources :groups, only: [:show, :destroy]
   resources :tags, only: [:index]
 
@@ -33,6 +35,7 @@ Rails.application.routes.draw do
   get 'comments/check_for_like' => 'comments#check_for_like'
   get 'users/:user_id/feed_histories/:id/sort_by_date' => 'feed_histories#sort_by_date'
   get 'users/:user_id/feed_histories/:id/sort_by_recommended' => 'feed_histories#sort_by_recommended'
+  delete 'users/:user_id/groups/:group_id/subscriptions' => 'subscriptions#delete', as: :destroy_subscription
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
